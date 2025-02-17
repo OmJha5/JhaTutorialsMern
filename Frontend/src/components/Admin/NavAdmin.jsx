@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Home, Users, Menu, X } from "lucide-react";
-import { useSelector } from 'react-redux';
+import { Home, Users, Menu, X, BriefcaseBusiness } from "lucide-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setActiveTab } from '@/redux/userSlice';
 
-const menuItems = [
-    { id: "dashboard", name: "Dashboard", icon: Home },
-    { id: "users", name: "Users", icon: Users },
-];
-
-export default function NavAdmin({ activeTab, setActiveTab, sidebarOpen, setSidebarOpen }) {
+export default function NavAdmin() {
     let { user } = useSelector((state) => state.user);
+    let { activeTab } = useSelector((state) => state.user);
+    let [sidebarOpen, setSidebarOpen] = useState(false);
+    let dispatch = useDispatch();
+
+    let navigate = useNavigate();
 
     return (
-        <div>
+        <div className='fixed top-0 left-0 md:h-full max-md:w-full'>
             {/* Mobile Sidebar Toggle */}
             <div className="md:hidden p-4 flex justify-between items-center bg-gray-900 text-white">
                 <h1 className="text-xl font-bold ">Admin Panel</h1>
@@ -29,22 +31,45 @@ export default function NavAdmin({ activeTab, setActiveTab, sidebarOpen, setSide
             )}>
                 <h1 className="text-xl font-bold">Admin Panel</h1>
                 <nav className="flex flex-col gap-2">
-                    {menuItems.map((item) => (
-                        
+
+                    {/* Dashboard */}
+                    <Button
+                        key={"Dashboard"}
+                        onClick={() => { setSidebarOpen(false); dispatch(setActiveTab("Dashboard")); navigate("/admin") }}
+                        variant="ghost"
+                        className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "Dashboard" && "bg-gray-700"}`}
+                    >
+                        <Home className="w-5 h-5" />
+                        Dashboard
+                    </Button>
+
+                    {/* Jobs */}
+                    <Button
+                        key={"Jobs"}
+                        onClick={() => { setSidebarOpen(false); dispatch(setActiveTab("Jobs")); navigate("/admin/jobs") }}
+                        variant="ghost"
+                        className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "Jobs" && "bg-gray-700"}`}
+                    >
+                        <BriefcaseBusiness className="w-5 h-5" />
+                        Jobs
+                    </Button>
+
+                    {/* Users */}
+                    {
                         // Below is preety simple agar nav item users nhi hai tab to show ho jaye ya to nav item user to hai but role superadmin hai woh bhi thik case hai so show the button
-                        (item.id != "users" || user?.role == "superadmin") && (
+                        (user?.role == "superadmin") && (
                             <Button
-                                key={item.id}
-                                onClick={() => { setActiveTab(item.id); setSidebarOpen(false); }}
+                                key={"Users"}
+                                onClick={() => { dispatch(setActiveTab("Users")); setSidebarOpen(false); navigate("/admin/users") }}
                                 variant="ghost"
-                                className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === item.id && "bg-gray-700"}`}
+                                className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "Users" && "bg-gray-700"}`}
                             >
-                                <item.icon className="w-5 h-5" />
-                                {item.name}
+                                <Users className="w-5 h-5" />
+                                Users
                             </Button>
                         )
+                    }
 
-                    ))}
                 </nav>
             </div>
         </div>
