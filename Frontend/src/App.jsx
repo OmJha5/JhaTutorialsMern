@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Jobs from './components/Guest/Jobs'
 import Home from './components/Guest/Home'
 import Admin from './components/Admin/Admin'
-import CreateJob from './components/Admin/CreateJob'
+import CreatePost from './components/Admin/CreatePost'
 import AdminLogin from './components/Admin/AdminLogin'
 import AdminUsers from './components/Admin/AdminUsers'
-import AdminJobs from './components/Admin/AdminJobs'
+import AdminPosts from './components/Admin/AdminPosts'
 
 const appRouter = createBrowserRouter([
     {
@@ -26,12 +26,12 @@ const appRouter = createBrowserRouter([
         element : <AdminLogin/>
     },
     {
-        path : "/admin/jobs/create",
-        element : <CreateJob/>
+        path : "/admin/posts/create",
+        element : <CreatePost/>
     },
     {
-        path : "/admin/jobs",
-        element : <AdminJobs/>
+        path : "/admin/posts",
+        element : <AdminPosts/>
     },
     {
         path : "/admin/users",

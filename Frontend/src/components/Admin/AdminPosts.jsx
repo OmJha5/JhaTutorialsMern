@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 
-export default function Admin() {
+export default function AdminPosts() {
     useCheckUser();
     let { user } = useSelector((state) => state.user)
     let navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function Admin() {
             {/* Main Content */}
             <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out mr-16">
                 <div className="flex justify-end">
-                    <Button className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer" onClick={() => navigate("/admin/jobs/create")}>Create</Button>
+                    <Button className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer" onClick={() => navigate("/admin/posts/create")}>Create</Button>
                 </div>
 
 

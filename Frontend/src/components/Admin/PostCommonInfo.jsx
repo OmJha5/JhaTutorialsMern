@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from '../ui/textarea'
 
-export default function JobCommonInfo({ commonInfo, setCommonInfo }) {
+export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
     return (
         <div>
             <div className="flex flex-col gap-7 p-4 rounded-md shadow-lg mb-10">

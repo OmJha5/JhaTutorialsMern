@@ -45,13 +45,13 @@ export default function NavAdmin() {
 
                     {/* Jobs */}
                     <Button
-                        key={"Jobs"}
-                        onClick={() => { setSidebarOpen(false); dispatch(setActiveTab("Jobs")); navigate("/admin/jobs") }}
+                        key={"Posts"}
+                        onClick={() => { setSidebarOpen(false); dispatch(setActiveTab("Posts")); navigate("/admin/posts") }}
                         variant="ghost"
-                        className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "Jobs" && "bg-gray-700"}`}
+                        className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "Posts" && "bg-gray-700"}`}
                     >
                         <BriefcaseBusiness className="w-5 h-5" />
-                        Jobs
+                        Posts
                     </Button>
 
                     {/* Users */}
