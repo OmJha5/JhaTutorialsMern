@@ -26,7 +26,7 @@ const EditableCell = ({ value, onUpdate }) => {
   return (
     <>
       {editor && <Toolbar editor={editor} />} {/* Pass the editor to Toolbar */}
-      <EditorContent editor={editor} className="p-2 h-full bg-white" />
+      <EditorContent editor={editor} className="p-2 h-full" />
     </>
   );
 };

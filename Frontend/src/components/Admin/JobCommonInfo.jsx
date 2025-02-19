@@ -72,9 +72,16 @@ export default function JobCommonInfo({ commonInfo, setCommonInfo }) {
                             <SelectValue placeholder="Select the post category" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="dark">Dark</SelectItem>
-                            <SelectItem value="system">System</SelectItem>
+                            <SelectItem value="teaching">Teaching</SelectItem>
+                            <SelectItem value="defencejobs">Defence Jobs</SelectItem>
+                            <SelectItem value="bankingjobs">Banking Jobs</SelectItem>
+                            <SelectItem value="sscjobs">SSC Jobs</SelectItem>
+                            <SelectItem value="railwayjobs">Railway Jobs</SelectItem>
+                            <SelectItem value="12thleveljobs">12th Level Jobs</SelectItem>
+                            <SelectItem value="diplomaleveljobs">Diploma Level Jobs</SelectItem>
+                            <SelectItem value="graduationjobs">Graduation Jobs</SelectItem>
+                            <SelectItem value="pgpassjobs">PG Pass Jobs</SelectItem>
+                            <SelectItem value="techjobs">Tech Jobs</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -90,7 +97,7 @@ export default function JobCommonInfo({ commonInfo, setCommonInfo }) {
                 </div>
 
             </div>
-
+            
 
 
 

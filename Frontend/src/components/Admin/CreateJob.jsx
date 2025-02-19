@@ -5,13 +5,15 @@ import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
 import useCheckUser from '@/hooks/useCheckUser';
 import { useSelector } from 'react-redux';
-import NavAdmin from './NavAdmin';
+import NavAdmin from './NavAdmin';  
+import NotificationBox from './NotificationBox';  
 import Tables from './Tables';
 
 export default function CreateJob() {
     useCheckUser();
     let {user} = useSelector((state) => state.user)
     let [tables , setTables] = useState([]);
+    let [boxes , setBoxes] = useState([]); // Notification box
     let navigate = useNavigate();
     let [commonInfo , setCommonInfo] = useState({
         posttitle : "" , postname : "" , postshortname : "" , totalvacancies : "" , briefinformation : "" , startingdate : "" , endingdate : "" , qualification : "" , applylink : "" , postcategory : "" , location : "", file : "",
@@ -35,6 +37,9 @@ export default function CreateJob() {
 
                 {/* Tables */}
                 <Tables tables={tables} setTables={setTables} />
+
+                {/* Notification Box */}
+                <NotificationBox boxes={boxes} setBoxes={setBoxes} />
             </div>
 
         </div>

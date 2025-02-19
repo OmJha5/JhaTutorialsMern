@@ -7,7 +7,7 @@ import { FiTrash } from "react-icons/fi"; // Trash icon from react-icons
 export default function Tables({tables , setTables}) {
 
   const addTable = () => {
-    setTables([...tables, { id: crypto.randomUUID() , name: "", headers: [], rows: [[]] }]);
+    setTables([...tables, { id: crypto.randomUUID() , name: "", headers: [], data: [[]] }]);
   };
 
   const addColumn = (index) => {
@@ -17,7 +17,7 @@ export default function Tables({tables , setTables}) {
           return {
             ...table,
             headers: [...table.headers, ""],
-            rows: table.rows.map((row) => [...row, ""]),
+            data: table.data.map((row) => [...row, ""]),
           };
         }
         return table;
@@ -36,7 +36,7 @@ export default function Tables({tables , setTables}) {
         if (i === index) {
           return {
             ...table,
-            rows: [...table.rows, Array(table.headers.length).fill("")],
+            data: [...table.data, Array(table.headers.length).fill("")],
           };
         }
         return table;
@@ -45,7 +45,7 @@ export default function Tables({tables , setTables}) {
   };
 
   return (
-    <div className="space-y-6 min-h-screen ">
+    <div className="space-y-6 ">
       <Button onClick={addTable} className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">
         Add Table
       </Button>
@@ -85,7 +85,7 @@ export default function Tables({tables , setTables}) {
 
             {/* Table Body */}
             <tbody>
-              {table.rows.map((row, rowIndex) => (
+              {table.data.map((row, rowIndex) => (
                 <tr key={rowIndex} className="flex-1">
                   {row.map((cell, colIndex) => (
                     <td key={colIndex} className="border border-gray-300">
@@ -93,7 +93,7 @@ export default function Tables({tables , setTables}) {
                         value={cell}
                         onUpdate={(newValue) => {
                           const newTables = [...tables];
-                          newTables[index].rows[rowIndex][colIndex] = newValue;
+                          newTables[index].data[rowIndex][colIndex] = newValue;
                           setTables(newTables);
                         }}
                       />
