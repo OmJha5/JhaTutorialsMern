@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import useCheckUser from '@/hooks/useCheckUser';
 import { useSelector } from 'react-redux';
 import NavAdmin from './NavAdmin';
+import Tables from './Tables';
 
 export default function CreateJob() {
     useCheckUser();
     let {user} = useSelector((state) => state.user)
+    let [tables , setTables] = useState([]);
     let navigate = useNavigate();
     let [commonInfo , setCommonInfo] = useState({
         posttitle : "" , postname : "" , postshortname : "" , totalvacancies : "" , briefinformation : "" , startingdate : "" , endingdate : "" , qualification : "" , applylink : "" , postcategory : "" , location : "", file : "",
@@ -21,7 +23,7 @@ export default function CreateJob() {
             <NavAdmin />
 
             {/* Main Content */}
-            <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-10 flex-col">
+            <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-5 flex-col">
                 <h1 className='text-4xl font-medium'>Create Job</h1>
                 <div>
                     <Button onClick={() => navigate("/admin/jobs")}><ArrowLeft size={24} /> <span className='ml-2'>Back</span></Button>
@@ -30,7 +32,11 @@ export default function CreateJob() {
                 <div>
                     <JobCommonInfo commonInfo={commonInfo} setCommonInfo={setCommonInfo} />
                 </div>
+
+                {/* Tables */}
+                <Tables tables={tables} setTables={setTables} />
             </div>
+
         </div>
 
     )
