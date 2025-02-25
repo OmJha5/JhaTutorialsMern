@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import JobCommonInfo from './PostCommonInfo'
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from '../ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useCheckUser from '@/hooks/useCheckUser';
 import { useSelector } from 'react-redux';
 import NavAdmin from './NavAdmin';  
@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 
-export default function CreatePost() {
+export default function EditPost() {
     useCheckUser();
     let {user} = useSelector((state) => state.user)
     let [tables , setTables] = useState([]);
@@ -22,6 +22,41 @@ export default function CreatePost() {
         posttitle : "" , postname : "" , postshortname : "" , totalvacancies : "" , briefinformation : "" , startingdate : "" , endingdate : "" , qualification : "" , applylink : "" , postcategory : "" , location : "", file : "",
     });
     let [loading , setLoading] = useState(false);
+    let {id} = useParams();
+
+    useEffect(() => {  
+        let getCurrPost = async() => {
+            try{
+                let res = await axios.get(`${POST_API_ENDPOINT}/get/${id}` , {withCredentials : true});
+
+                if(res.data.success){
+                    let post = res.data.post;
+
+                    setCommonInfo({
+                        posttitle : post.posttitle,
+                        postname : post.postname,
+                        postshortname : post.postshortname,
+                        totalvacancies : post.totalvacancies,
+                        briefinformation : post.briefinformation,
+                        startingdate : post.startingdate,
+                        endingdate : post.endingdate,
+                        qualification : post.qualification,
+                        applylink : post.applylink,
+                        postcategory : post.postcategory,
+                        location : post.location,
+                    })
+
+                    setBoxes(post.boxes);
+                    setTables(post.tables);
+                }
+            }
+            catch(e){
+                console.log(e);
+                toast.error(e?.response?.data?.message);
+            }
+        }
+        getCurrPost();
+    } , [])
 
     let isFormValid = () => {
         if(commonInfo.posttitle == "" || commonInfo.postname == "" || commonInfo.postshortname == "" || isNaN(commonInfo.totalvacancies) || commonInfo.briefinformation == "" || commonInfo.startingdate == "" || commonInfo.endingdate == "" || commonInfo.qualification == "" || commonInfo.applylink == "" || commonInfo.postcategory == "" || commonInfo.location == "" || commonInfo.file == ""){
@@ -49,15 +84,13 @@ export default function CreatePost() {
                 data.append("applylink" , commonInfo.applylink);
                 data.append("postcategory" , commonInfo.postcategory);
                 data.append("location" , commonInfo.location);
-                data.append("file" , commonInfo.file);
-
-                console.log(commonInfo.file)
+                if(commonInfo.file) data.append("file" , commonInfo.file);
 
                 // ✅ Convert objects to JSON before appending
                 data.append("tables", JSON.stringify(tables));
                 data.append("boxes", JSON.stringify(boxes));
 
-                let res = await axios.post(`${POST_API_ENDPOINT}/create` , data , {
+                let res = await axios.post(`${POST_API_ENDPOINT}/edit/${id}` , data , {
                     headers : {
                         "Content-Type" : "multipart/form-data"
                     },
@@ -70,7 +103,6 @@ export default function CreatePost() {
                 }
             }
             catch(e){
-                console.log(e);
                 toast.error(e?.response?.data?.message);
             }
             finally{
@@ -86,7 +118,7 @@ export default function CreatePost() {
 
             {/* Main Content */}
             <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-5 flex-col">
-                <h1 className='text-4xl font-medium'>Create New Post</h1>
+                <h1 className='text-4xl font-medium'>Edit Your Post</h1>
                 <div>
                     <Button onClick={() => navigate("/admin/posts")}><ArrowLeft size={24} /> <span className='ml-2'>Back</span></Button>
                 </div>
@@ -102,7 +134,7 @@ export default function CreatePost() {
                 <NotificationBox boxes={boxes} setBoxes={setBoxes} />
 
                 {
-                    loading ? <Button className="my-10 w-fit"><Loader2 className='animate-spin' /> <span className='ml-2'>please wait..</span></Button> : <Button className="my-10 w-fit" onClick={submitHandler}>Add Post</Button>
+                    loading ? <Button className="my-10 w-fit"><Loader2 className='animate-spin' /> <span className='ml-2'>please wait..</span></Button> : <Button className="my-10 w-fit" onClick={submitHandler}>Edit Post</Button>
                 }
             </div>
 

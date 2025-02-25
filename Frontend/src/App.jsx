@@ -7,6 +7,7 @@ import CreatePost from './components/Admin/CreatePost'
 import AdminLogin from './components/Admin/AdminLogin'
 import AdminUsers from './components/Admin/AdminUsers'
 import AdminPosts from './components/Admin/AdminPosts'
+import EditPost from './components/Admin/EditPost'
 
 const appRouter = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const appRouter = createBrowserRouter([
     {
         path : "/admin/users",
         element : <AdminUsers/>
+    },
+    {
+        path : "/admin/posts/edit/:id",
+        element : <EditPost/>
     },
     
 ])

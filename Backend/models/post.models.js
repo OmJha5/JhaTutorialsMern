@@ -15,7 +15,11 @@ const postSchema = new mongoose.Schema({
     notificationLink : {type : String , required : true},
     
     tables : [
-        {
+        {   
+            id : {
+                type : String,
+                required : true
+            },
             name: {
                 type: String,
                 required: true,  // Ensures that 'name' is always provided
@@ -33,6 +37,10 @@ const postSchema = new mongoose.Schema({
 
     boxes : [
         {
+            id : {
+                type : String,
+                required : true
+            },
             heading : {
                 type : String,
                 required : true
