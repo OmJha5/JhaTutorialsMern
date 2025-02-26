@@ -6,10 +6,23 @@ import { motion } from "framer-motion";
 import logo from "../../../Images/logo.jpg"
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuery } from "@/redux/postSlice";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
   let navigate = useNavigate();
+  let {query} = useSelector((state) => state.post);
+  let dispatch = useDispatch();
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      dispatch(setQuery(input));
+      navigate("/browse")
+      setInput("");
+    }
+  };
 
   return (
     <nav >
@@ -49,6 +62,9 @@ export default function Navbar() {
               type="text"
               placeholder="Filter by Job name."
               className="pl-10 pr-4 py-2 rounded-lg border-gray-300 focus-visible:ring-0"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown} // Detects when Enter key is pressed
             />
           </div>
 

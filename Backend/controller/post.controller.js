@@ -144,3 +144,31 @@ export let editPost = async(req , res) => {
         })
     }
 }
+
+export let getPostByQuery = async(req , res) => {
+    try{
+        let keyword = req.query?.keyword || ""
+
+        const query = {
+            $or : [
+                {briefinformation : {$regex : keyword , $options : "i"}},
+                {qualification : {$regex : keyword , $options : "i"}},
+                {postcategory : {$regex : keyword , $options : "i"}},
+                {location : {$regex : keyword , $options : "i"}},
+            ]
+        };
+
+        let allPosts = await Post.find(query);
+        
+        return res.status(200).json({
+            allPosts,
+            success : true
+        })
+
+    }
+    catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+}

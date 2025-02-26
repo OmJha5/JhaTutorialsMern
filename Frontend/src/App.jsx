@@ -9,11 +9,16 @@ import AdminLogin from './components/Admin/AdminLogin'
 import AdminUsers from './components/Admin/AdminUsers'
 import AdminPosts from './components/Admin/AdminPosts'
 import EditPost from './components/Admin/EditPost'
+import Browse from './components/Guest/Browse'
 
 const appRouter = createBrowserRouter([
     {
         path : "/",
         element : <Home/>
+    },
+    {
+        path : "/browse",
+        element : <Browse/>
     },
     {
         path : "/posts",
