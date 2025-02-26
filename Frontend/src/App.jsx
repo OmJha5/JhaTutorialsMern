@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Jobs from './components/Guest/Jobs'
+import Posts from './components/Guest/posts'
+import Post from './components/Guest/post'
 import Home from './components/Guest/Home'
 import Admin from './components/Admin/Admin'
 import CreatePost from './components/Admin/CreatePost'
@@ -15,8 +16,12 @@ const appRouter = createBrowserRouter([
         element : <Home/>
     },
     {
-        path : "/jobs",
-        element : <Jobs/>
+        path : "/posts",
+        element : <Posts/>
+    },
+    {
+        path : "/post/:id",
+        element : <Post/>
     },
     {
         path : "/admin",

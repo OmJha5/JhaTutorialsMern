@@ -31,7 +31,7 @@ export default function Navbar() {
             {/* Desktop Links */}
             <div className="hidden lg:flex space-x-7 xl:space-x-9 text-sm xl:text-base">
               <Link to="/">Home</Link>
-              <Link to="/jobs">Latest Jobs</Link>
+              <Link to="/posts">Latest Posts</Link>
               <Link to="#" onClick={(e) => {
                 e.preventDefault()
                 toast.success("We will Roll out this feature soon..")
