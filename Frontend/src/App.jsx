@@ -10,11 +10,21 @@ import AdminUsers from './components/Admin/AdminUsers'
 import AdminPosts from './components/Admin/AdminPosts'
 import EditPost from './components/Admin/EditPost'
 import Browse from './components/Guest/Browse'
+import Donate from './components/Guest/Donate'
+import About from './components/Guest/About'
 
 const appRouter = createBrowserRouter([
     {
         path : "/",
         element : <Home/>
+    },
+    {
+        path : "/donate",
+        element : <Donate/>
+    },
+    {
+        path : "/about",
+        element : <About/>
     },
     {
         path : "/browse",

@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav >
+    <nav className="!bg-white">
 
       <div className="sm:max-w-[85%] mx-auto sm:py-3 max-sm:py-1 px-4 sm:px-6 lg:px-8">
         <div className="flex lg:justify-between lg:items-center relative">
@@ -50,8 +50,8 @@ export default function Navbar() {
                 toast.success("We will Roll out this feature soon..")
               }}>Cources</Link>
 
-              <Link to="#">Donate Us</Link>
-              <Link to="#">About Us</Link>
+              <Link to="#" onClick={() => navigate("/donate")}>Donate Us</Link>
+              <Link to="#" onClick={() => navigate("/about")}>About Us</Link>
             </div>
           </div>
 
