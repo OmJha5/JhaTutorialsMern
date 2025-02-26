@@ -33,7 +33,7 @@ export let createPost = async (req, res) => {
 
 export let getAllPosts = async (req, res) => {
     try {
-        let allPosts = await Post.find({});
+        let allPosts = await Post.find({}).sort({createdAt : -1});
 
         // Format each post's endingtime
         allPosts = allPosts.map(post => {
@@ -172,3 +172,53 @@ export let getPostByQuery = async(req , res) => {
         })
     }
 }
+
+export let getTop9Post = async(req , res) => {
+    try{
+        const topPosts = await Post.find().sort({ createdAt: -1 }).limit(9);
+
+        return res.status(200).json({
+            topPosts,
+            success : true,
+        })
+    }
+    catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+}
+
+export let getTop5GraduationAndPGPost = async(req , res) => {
+    try{
+        const topPosts = await Post.find({postcategory : {$in : ["graduationjobs", "pgpassjobs"]}}).sort({ createdAt: -1 }).limit(5);
+
+        return res.status(200).json({
+            topPosts,
+            success : true,
+        })
+    }
+    catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+}
+
+export let getTop5TwelthPosts = async(req , res) => {
+    try{
+        const topPosts = await Post.find({postcategory : "12thleveljobs"}).sort({ createdAt: -1 }).limit(5);
+
+        return res.status(200).json({
+            topPosts,
+            success : true,
+        })
+    }
+    catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+}
+
+

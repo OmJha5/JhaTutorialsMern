@@ -9,8 +9,8 @@
 
 ul {
   list-style-type: disc; /* Makes sure the dots appear */
-  list-style-position: inside;
-  /* padding-left: 20px; Adds padding to ensure the list items don't touch the left edge */
+  /* list-style-position: inside; */
+  padding-left: 20px; /* Adds padding to ensure the list items don't touch the left edge*/
 }
 
 li {

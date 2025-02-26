@@ -22,25 +22,22 @@ export default function Post() {
     };
 
     useEffect(() => {
-        const getAllPosts = async () => {
-            try {
-                let res = await axios.get(`${POST_API_ENDPOINT}/get`, {
-                    withCredentials: true,
-                });
 
-                if (res.data.success) {
-                    let allExceptCurrPost = res.data.allPosts.filter(
-                        (post) => post._id !== id
-                    );
-                    setAllPosts(allExceptCurrPost);
-                }
-            } catch (e) {
-                console.error(e?.response?.data?.message);
+        let getTop9Post = async () => {
+          try {
+            let res = await axios.get(`${POST_API_ENDPOINT}/gettop9`, { withCredentials: true });
+    
+            if (res.data.success) {
+              setAllPosts(res.data.topPosts);
             }
-        };
-
-        getAllPosts();
-    }, [id]);
+          }
+          catch (e) {
+            toast.error(e?.response?.data?.message);
+          }
+        }
+    
+        getTop9Post();
+      }, [])
 
     useEffect(() => {
         const getCurrPost = async () => {
