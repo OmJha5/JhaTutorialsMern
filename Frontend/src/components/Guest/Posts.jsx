@@ -3,7 +3,6 @@ import Navbar from './Shared/Navbar';
 import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { Loader2 } from 'lucide-react';
 
 export default function Posts() {

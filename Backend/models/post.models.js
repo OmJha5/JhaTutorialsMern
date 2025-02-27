@@ -13,6 +13,7 @@ const postSchema = new mongoose.Schema({
     postcategory : { type : String , required : true},
     location : { type : String , required : true},
     notificationLink : {type : String , required : true},
+    youtubelink : {type : String , default : ""},
     
     tables : [
         {   

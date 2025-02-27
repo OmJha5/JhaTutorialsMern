@@ -10,6 +10,7 @@ import { Input } from '../ui/input';
 import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 export default function AdminPosts() {
     useCheckUser();
@@ -17,11 +18,13 @@ export default function AdminPosts() {
     let navigate = useNavigate();
     let [posts, setAllPosts] = useState([]);
     let [filteredPosts, setFilteredPosts] = useState([]);
+    let [loading, setLoading] = useState(false);
 
     useEffect(() => {
 
         const getAllPosts = async () => {
             try {
+                setLoading(true);
                 let res = await axios.get(`${POST_API_ENDPOINT}/get`, { withCredentials: true });
 
                 if (res.data.success) {
@@ -31,6 +34,9 @@ export default function AdminPosts() {
             catch (e) {
                 toast.error(e?.response?.data?.message)
             }
+            finally {
+                setLoading(false);
+            }
         }
 
         getAllPosts();
@@ -38,7 +44,7 @@ export default function AdminPosts() {
 
     useEffect(() => {
         setFilteredPosts(posts);
-    } , [posts])
+    }, [posts])
 
     let filterHandler = (e) => {
         let text = e.target.value;
@@ -54,19 +60,29 @@ export default function AdminPosts() {
     }
 
     return (
-        <div className="flex h-screen flex-col md:flex-row relative">
-            <NavAdmin />
+        <div>
+            {
+                loading ? (
+                    <div className='w-full h-screen flex justify-center items-center'>
+                        <Loader2 className='animate-spin' size={25} />
+                    </div>
+                ) : (
+                    <div className="flex h-screen flex-col md:flex-row relative">
+                        <NavAdmin />
 
-            {/* Main Content */}
-            <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out mr-16">
-                <div className="flex justify-between">
-                    <Input placeholder="Filter by Any Thing" className="w-fit" onChange={filterHandler} autoFocus onFocus={(e) => e.target.focus()} />
-                    <Button className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer" onClick={() => navigate("/admin/posts/create")}>Create</Button>
-                </div>
+                        {/* Main Content */}
+                        <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out mr-16">
+                            <div className="flex justify-between">
+                                <Input placeholder="Filter by Any Thing" className="w-fit" onChange={filterHandler} autoFocus onFocus={(e) => e.target.focus()} />
+                                <Button className="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer" onClick={() => navigate("/admin/posts/create")}>Create</Button>
+                            </div>
 
-                <AdminPostsTable posts={posts} setAllPosts={setAllPosts} filteredPosts={filteredPosts} setFilteredPosts={setFilteredPosts} />
+                            <AdminPostsTable posts={posts} setAllPosts={setAllPosts} filteredPosts={filteredPosts} setFilteredPosts={setFilteredPosts} />
 
-            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     );
 }

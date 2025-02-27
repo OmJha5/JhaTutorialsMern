@@ -194,6 +194,16 @@ export default function Post() {
                                 }
                             </div>
 
+                            <h1 className="text-red-700 text-lg font-semibold">
+                                Click &nbsp;
+                                <span className="underline text-blue-600 hover:text-blue-800">
+                                    <a href={currPost?.notificationLink} target="_blank">
+                                        Here
+                                    </a>
+                                </span>
+                                &nbsp; to download the Notification PDF.
+                            </h1>
+
                             {/* Job Notifications Section */}
                             <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-md">
                                 <h1 className="font-semibold text-lg text-gray-700">Job Notifications</h1>
