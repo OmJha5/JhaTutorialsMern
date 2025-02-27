@@ -204,6 +204,31 @@ export default function Post() {
                                 &nbsp; to download the Notification PDF.
                             </h1>
 
+                            {
+                                (currPost?.officialwebsitelink) ? (
+                                    <h1 className="text-red-700 text-lg font-semibold my-3">
+                                        Click &nbsp;
+                                        <span className="underline text-blue-600 hover:text-blue-800">
+                                            <a href={currPost?.officialwebsitelink} target="_blank">
+                                                Here
+                                            </a>
+                                        </span>
+                                        &nbsp; to visit the official website .
+                                    </h1>
+                                ) : ""
+                            }
+
+                            {
+                                currPost?.youtubelink ? (
+                                    <div>
+                                        <h1 className="text-lg font-semibold my-3">For More information about the post checkout the video</h1>
+                                        <iframe src={currPost?.youtubelink} className="border border-gray-200 p-3 rounded-md" width={325} frameborder="0" allowFullScreen></iframe>
+                                    </div>
+                                ) : (
+                                    ""
+                                )
+                            }
+
                             {/* Job Notifications Section */}
                             <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-md">
                                 <h1 className="font-semibold text-lg text-gray-700">Job Notifications</h1>

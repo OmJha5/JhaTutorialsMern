@@ -1,17 +1,17 @@
+import dotenv from "dotenv"
+dotenv.config({path : "../.env"})
 import mongoose from "mongoose"
 import Post from "../models/post.models.js";
-import dotenv from "dotenv"
-dotenv.config({})
 
 let addYouTubeLink = async() => {
   try {
     await mongoose.connect(process.env.MONGO_URL); // Connect to your DB
 
-    const defaultYouTubeLink = "https://youtu.be/3FsPWD95Klo?feature=shared"; // Set your default link
+    const defaultyoutubelink = "https://www.youtube.com/embed/3FsPWD95Klo?si=1dUwK86iO8J11rdq"; // Set your default link
 
     const result = await Post.updateMany(
       {}, // Empty filter means update all documents
-      { $set: { youtubelink: defaultYouTubeLink } } // Add youtubeLink field
+      { $set: { youtubelink : defaultyoutubelink } } // Add youtubeLink field
     );
 
     mongoose.disconnect();

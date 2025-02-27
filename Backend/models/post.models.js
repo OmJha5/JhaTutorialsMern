@@ -14,6 +14,7 @@ const postSchema = new mongoose.Schema({
     location : { type : String , required : true},
     notificationLink : {type : String , required : true},
     youtubelink : {type : String , default : ""},
+    officialwebsitelink : {type : String , default : ""},
     
     tables : [
         {   

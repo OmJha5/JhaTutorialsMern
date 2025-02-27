@@ -87,6 +87,8 @@ export default function Home() {
   const marqueeRef1 = useRef(null);
   const marqueeRef2 = useRef(null);
   const marqueeRef3 = useRef(null);
+  const twelthPostsMarquee = useRef(null);
+  const graduationAndPgPostsMarquee = useRef(null);
   // Without ref: The onMouseOver and onMouseOut events were only triggered on the Link element, not the parent <marquee>. So when you hovered over the Link, the marquee's stop() and start() methods weren't triggered.
   // With ref: You're directly controlling the parent <marquee> element via the ref, so the marquee's behavior is unaffected by where the mouse is, whether it’s on the parent or a child (Link). Events are not relying on bubbling and are applied directly to the marquee.
 
@@ -154,7 +156,7 @@ export default function Home() {
                 <div className="border border-gray-300 rounded-lg p-6 bg-white h-[400px]">
                   <h2 className="text-xl font-semibold text-gray-800 mb-4 py-2 text-center border-b">All India 12th Pass Jobs</h2>
 
-                  <marquee behavior="scroll" direction="up" scrolldelay="150" className="h-[80%]">
+                  <marquee ref={twelthPostsMarquee} onMouseOver={() => twelthPostsMarquee.current.stop()} onMouseOut={() => twelthPostsMarquee.current.start()} behavior="scroll" direction="up" scrolldelay="150" className="h-[80%]">
                     <div className="flex flex-col gap-3 text-center">
                       {twelthPosts?.map((post, ind) => (
                         (
@@ -189,7 +191,7 @@ export default function Home() {
                 <div className="border border-gray-300 rounded-lg p-6 bg-white h-[400px]">
                   <h2 className="text-xl font-semibold text-gray-800 mb-4 py-2 text-center border-b">All India Graduate & Post Graduate Jobs</h2>
 
-                  <marquee behavior="scroll" direction="up" scrolldelay="150" className="h-[80%]">
+                  <marquee ref={graduationAndPgPostsMarquee} onMouseOver={() => graduationAndPgPostsMarquee.current.stop()} onMouseOut={() => graduationAndPgPostsMarquee.current.start()} behavior="scroll" direction="up" scrolldelay="150" className="h-[80%]">
                     <div className="flex flex-col gap-3 text-center">
                       {graduationAndPgPosts?.map((post, ind) => (
                         (

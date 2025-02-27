@@ -2,7 +2,7 @@ import Post from "../models/post.models.js";
 
 export let createPost = async (req, res) => {
     try {
-        let { posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate, endingdate, qualification, applylink, postcategory, location } = req.body;
+        let { posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate, endingdate, qualification, applylink, youtubelink , officialwebsitelink , postcategory, location } = req.body;
         if (posttitle == "" || postname == "" || postshortname == "" || totalvacancies == "" || briefinformation == "" || startingdate == "" || endingdate == "" || qualification == "" || applylink == "" || postcategory == "" || location == "") {
             res.status(400).json({
                 message: "Fields are required",
@@ -14,7 +14,7 @@ export let createPost = async (req, res) => {
         const boxes = req.body.boxes ? JSON.parse(req.body.boxes) : [];
 
         let newPost = await Post.create({
-            posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate: new Date(startingdate), endingdate: new Date(endingdate), qualification, applylink, postcategory, location, tables, boxes, notificationLink: req?.file?.path
+            posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate: new Date(startingdate), endingdate: new Date(endingdate), qualification, applylink , youtubelink , officialwebsitelink , postcategory, location, tables, boxes, notificationLink: req?.file?.path
         })
 
         newPost.save();
@@ -113,7 +113,7 @@ export let getPostById = async (req, res) => {
 export let editPost = async(req , res) => {
     try{
         let {id} = req.params;
-        let { posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate, endingdate, qualification, applylink, postcategory, location } = req.body;
+        let { posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate, endingdate, qualification, applylink, youtubelink , officialwebsitelink , postcategory, location } = req.body;
         if (posttitle == "" || postname == "" || postshortname == "" || totalvacancies == "" || briefinformation == "" || startingdate == "" || endingdate == "" || qualification == "" || applylink == "" || postcategory == "" || location == "") {
             res.status(400).json({
                 message: "Fields are required",
@@ -125,7 +125,7 @@ export let editPost = async(req , res) => {
         const boxes = req.body.boxes ? JSON.parse(req.body.boxes) : [];
 
         let newPost = await Post.findByIdAndUpdate(id , {
-            posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate: new Date(startingdate), endingdate: new Date(endingdate), qualification, applylink, postcategory, location, tables, boxes
+            posttitle, postname, postshortname, totalvacancies, briefinformation, startingdate: new Date(startingdate), endingdate: new Date(endingdate), qualification, applylink, youtubelink , officialwebsitelink , postcategory, location, tables, boxes
         } , {new : true})
 
         if(req.file){
@@ -158,7 +158,7 @@ export let getPostByQuery = async(req , res) => {
             ]
         };
 
-        let allPosts = await Post.find(query);
+        let allPosts = await Post.find(query).sort({createdAt : -1});
         
         return res.status(200).json({
             allPosts,

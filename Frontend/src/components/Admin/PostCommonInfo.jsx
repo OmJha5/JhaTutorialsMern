@@ -84,6 +84,18 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                         onChange={(e) => setCommonInfo({ ...commonInfo, applylink: e.target.value })} />
                 </div>
 
+                <div className="flex flex-col gap-4">
+                    <Label htmlFor="youtubelink">Youtube link</Label>
+                    <Input id="youtubelink" placeholder="Enter YT video link" value={commonInfo.youtubelink}
+                        onChange={(e) => setCommonInfo({ ...commonInfo, youtubelink: e.target.value })} />
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    <Label htmlFor="officialwebsitelink">Official Website Link</Label>
+                    <Input id="officialwebsitelink" placeholder="Enter official website link" value={commonInfo.officialwebsitelink}
+                        onChange={(e) => setCommonInfo({ ...commonInfo, officialwebsitelink: e.target.value })} />
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="startingdate">Starting Date</Label>
