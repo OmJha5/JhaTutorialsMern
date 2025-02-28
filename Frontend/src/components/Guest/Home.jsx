@@ -86,8 +86,8 @@ export default function Home() {
   // Without ref: The onMouseOver and onMouseOut events were only triggered on the Link element, not the parent <marquee>. So when you hovered over the Link, the marquee's stop() and start() methods weren't triggered.
   // With ref: You're directly controlling the parent <marquee> element via the ref, so the marquee's behavior is unaffected by where the mouse is, whether it’s on the parent or a child (Link). Events are not relying on bubbling and are applied directly to the marquee.
 
-  const isNewPost = (createdAt) => {
-    const postTime = new Date(createdAt);
+  const isNewPost = (updatedAt) => {
+    const postTime = new Date(updatedAt);
     const now = new Date();
     const diffInHours = (now - postTime) / (1000 * 60 * 60); // Convert milliseconds to hours
     return diffInHours <= 6; // Returns true if within 6 hours
@@ -123,7 +123,7 @@ export default function Home() {
                   <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 relative inline-block font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.createdAt) && ( // Display posts with new badge if is created within 6 hours.
+                    {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
                       <span className="bg-red-500 absolute left-[-36px] max-sm:left-[-32px] top-[-13px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
 
@@ -137,7 +137,7 @@ export default function Home() {
                   <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.createdAt) && ( // Display posts with new badge if is created within 6 hours.
+                    {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
                       <span className="bg-red-500 absolute left-[-36px] max-sm:left-[-32px] top-[-13px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
                   </Link>
@@ -150,7 +150,7 @@ export default function Home() {
                   <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.createdAt) && ( // Display posts with new badge if is created within 6 hours.
+                    {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
                       <span className="bg-red-500 absolute left-[-36px] max-sm:left-[-32px] top-[-13px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
                   </Link>

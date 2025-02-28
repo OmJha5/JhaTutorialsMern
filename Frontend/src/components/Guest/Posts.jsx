@@ -41,8 +41,8 @@ export default function Posts() {
     });
   };
 
-  const isNewPost = (createdAt) => {
-    const postTime = new Date(createdAt);
+  const isNewPost = (updatedAt) => {
+    const postTime = new Date(updatedAt);
     const now = new Date();
     const diffInHours = (now - postTime) / (1000 * 60 * 60); // Convert milliseconds to hours
     return diffInHours <= 6; // Returns true if within 6 hours
@@ -76,7 +76,7 @@ export default function Posts() {
                   >
                     {post?.postname}
                   </Link>
-                  {isNewPost(post.createdAt) && (
+                  {isNewPost(post.updatedAt) && (
                     <span className="bg-red-500 absolute left-[-15px] top-[-8px] text-white text-xs font-bold px-2 py-1 rounded">
                       New
                     </span>
