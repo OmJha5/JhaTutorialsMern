@@ -14,29 +14,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import InternalServerError from "../Guest/InternalServerError";
 
-const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts}) => {
+const AdminPostsTable = ({ posts, setAllPosts, filteredPosts, setFilteredPosts }) => {
   let navigate = useNavigate();
   let [isIncr, setIsIncr] = useState(true);
-  let [countHandPicked , setHandPicked] = useState(0);
+  let [countHandPicked, setHandPicked] = useState(0);
+  let [error, setError] = useState(false);
 
   useEffect(() => {
 
-    let getCountOfHandPickedPosts = async() => {
-      try{
-        let res = await axios.get(`${POST_API_ENDPOINT}/gethandpickedposts` , {withCredentials : true});
+    let getCountOfHandPickedPosts = async () => {
+      try {
+        let res = await axios.get(`${POST_API_ENDPOINT}/gethandpickedposts`, { withCredentials: true });
 
-        if(res.data.success){
+        if (res.data.success) {
           setHandPicked(res.data.countHandpicked);
         }
       }
-      catch(e){
-        toast.error(e?.response?.data?.message);
+      catch (e) {
+        setError(true);
       }
     }
 
     getCountOfHandPickedPosts();
-  } , [])
+  }, [])
 
   let sortEndingDate = async () => {
     const sortedPosts = [...posts].sort((a, b) => {
@@ -63,6 +65,9 @@ const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts
 
   let deletePost = async (id) => {
     try {
+      let wantToDelete = confirm("Do you want to do delete it ??")
+      if(!wantToDelete ) return ;
+      
       let res = await axios.delete(`${POST_API_ENDPOINT}/delete/${id}`, { withCredentials: true });
 
       if (res.data.success) {
@@ -72,9 +77,12 @@ const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts
       }
     }
     catch (e) {
-      console.log(e)
-      toast.error(e?.response?.data?.message)
+      setError(true);
     }
+  }
+
+  if (error) {
+    return <InternalServerError />
   }
 
   return (
@@ -104,7 +112,7 @@ const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts
                   <TableCell>{post?.endingdate}</TableCell>
                   <TableCell>
                     {
-                      (post?.handpicked) ? <Check size={20} className="text-green-500"/> : <CircleX size={20} className="text-red-600" />
+                      (post?.handpicked) ? <Check size={20} className="text-green-500" /> : <CircleX size={20} className="text-red-600" />
                     }
                   </TableCell>
                   <TableCell className="text-right">

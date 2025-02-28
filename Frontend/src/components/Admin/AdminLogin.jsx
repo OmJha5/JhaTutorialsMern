@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
+import InternalServerError from '../Guest/InternalServerError'
 
 export default function AdminLogin() {
   let [input, setInput] = useState({
@@ -19,6 +20,7 @@ export default function AdminLogin() {
   let [loading, setLoading] = useState(false);
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  let [error, setError] = useState(false);
 
   let changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -60,7 +62,7 @@ export default function AdminLogin() {
           },
           withCredentials: true
         })
-        
+
 
         if (res.data.success) {
           dispatch(setUser(res.data.user));
@@ -74,13 +76,17 @@ export default function AdminLogin() {
 
       }
       catch (e) {
-        toast.error(e?.response?.data?.message);
+        setError(true);
       }
       finally {
         setLoading(false);
       }
 
     }
+  }
+
+  if (error) {
+    return <InternalServerError />
   }
 
   return (

@@ -13,8 +13,9 @@ import axios from 'axios';
 import { USER_API_ENDPOINT } from '@/utils/apiendpoint';
 import { useDispatch } from 'react-redux';
 import { toast } from 'sonner';
+import InternalServerError from '../Guest/InternalServerError';
 
-export default function DialogCreateUser({ open, setOpen , allUsers , setAllUsers }) {
+export default function DialogCreateUser({ open, setOpen, allUsers, setAllUsers }) {
     let [input, setInput] = useState({
         email: "",
         password: "",
@@ -22,6 +23,7 @@ export default function DialogCreateUser({ open, setOpen , allUsers , setAllUser
     })
     let [loading, setLoading] = useState(false);
     let dispatch = useDispatch();
+    let [error , setError] = useState(false);
 
     let isValidEmail = () => {
         var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
@@ -61,7 +63,7 @@ export default function DialogCreateUser({ open, setOpen , allUsers , setAllUser
                 })
 
                 if (res.data.success) {
-                    let updatedAllUsers = [...allUsers , res.data.newUser];
+                    let updatedAllUsers = [...allUsers, res.data.newUser];
                     setAllUsers(updatedAllUsers);
                     setOpen(false);
                     setInput({
@@ -73,7 +75,7 @@ export default function DialogCreateUser({ open, setOpen , allUsers , setAllUser
 
             }
             catch (e) {
-                toast.error(e?.response?.data?.message);
+                setError(true);
             }
             finally {
                 setLoading(false);
@@ -84,6 +86,10 @@ export default function DialogCreateUser({ open, setOpen , allUsers , setAllUser
 
     let changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
+    }
+
+    if (error) {
+        return <InternalServerError />
     }
 
     return (

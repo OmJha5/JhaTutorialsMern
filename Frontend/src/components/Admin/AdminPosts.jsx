@@ -11,6 +11,7 @@ import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import InternalServerError from '../Guest/InternalServerError';
 
 export default function AdminPosts() {
     useCheckUser();
@@ -19,6 +20,7 @@ export default function AdminPosts() {
     let [posts, setAllPosts] = useState([]);
     let [filteredPosts, setFilteredPosts] = useState([]);
     let [loading, setLoading] = useState(false);
+    let [error, setError] = useState(false);
 
     useEffect(() => {
 
@@ -32,7 +34,7 @@ export default function AdminPosts() {
                 }
             }
             catch (e) {
-                toast.error(e?.response?.data?.message)
+                setError(true);
             }
             finally {
                 setLoading(false);
@@ -57,6 +59,10 @@ export default function AdminPosts() {
 
         setFilteredPosts(updatedAllPosts)
 
+    }
+
+    if (error) {
+        return <InternalServerError />
     }
 
     return (

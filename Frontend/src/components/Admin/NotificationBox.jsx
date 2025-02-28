@@ -15,10 +15,6 @@ export default function NotificationBox({ boxes, setBoxes }) {
         setBoxes(allBoxes);
     }
 
-    useEffect(() => {
-        console.log(boxes)
-    } , [boxes])
-
     return (
         <div className='space-y-6 pr-3 mt-10'>
             <Button onClick={addBox} className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">

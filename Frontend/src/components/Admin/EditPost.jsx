@@ -11,6 +11,7 @@ import Tables from './Tables';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
+import InternalServerError from '../Guest/InternalServerError';
 
 export default function EditPost() {
     useCheckUser();
@@ -19,11 +20,12 @@ export default function EditPost() {
     let [boxes, setBoxes] = useState([]); // Notification box
     let navigate = useNavigate();
     let [commonInfo, setCommonInfo] = useState({
-        posttitle: "", postname: "", postshortname: "", totalvacancies: "", briefinformation: "", startingdate: "", endingdate: "", qualification: "", applylink: "", youtubelink : "" , officialwebsitelink : "", postcategory: "", location: "", file: "", handpicked : false
+        posttitle: "", postname: "", postshortname: "", totalvacancies: "", briefinformation: "", startingdate: "", endingdate: "", qualification: "", applylink: "", youtubelink: "", officialwebsitelink: "", postcategory: "", location: "", file: "", handpicked: false
     });
     let [loading, setLoading] = useState(false);
     let [pageLoading, setPageLoading] = useState(false);
     let { id } = useParams();
+    let [error, setError] = useState(false);
 
     useEffect(() => {
         let getCurrPost = async () => {
@@ -48,7 +50,7 @@ export default function EditPost() {
                         officialwebsitelink: post.officialwebsitelink,
                         postcategory: post.postcategory,
                         location: post.location,
-                        handpicked : post.handpicked
+                        handpicked: post.handpicked
                     })
 
                     setBoxes(post.boxes);
@@ -56,7 +58,7 @@ export default function EditPost() {
                 }
             }
             catch (e) {
-                toast.error(e?.response?.data?.message);
+                setError(true);
             }
             finally {
                 setPageLoading(false);
@@ -113,12 +115,16 @@ export default function EditPost() {
                 }
             }
             catch (e) {
-                toast.error(e?.response?.data?.message);
+                setError(true);
             }
             finally {
                 setLoading(false);
             }
         }
+    }
+
+    if (error) {
+        return <InternalServerError />
     }
 
     return (

@@ -4,6 +4,7 @@ import Navbar from "./Shared/Navbar";
 import axios from "axios";
 import { POST_API_ENDPOINT } from "@/utils/apiendpoint";
 import { Loader2 } from "lucide-react";
+import InternalServerError from "./InternalServerError";
 
 export default function Post() {
     let params = useParams();
@@ -11,6 +12,7 @@ export default function Post() {
     let [posts, setAllPosts] = useState([]);
     let [currPost, setCurrPost] = useState([]);
     let [loading, setLoading] = useState(false);
+    let [error , setError] = useState(false);
     let navigate = useNavigate();
 
     // This will convert any valid date into 22 Mar 2025 type format
@@ -35,7 +37,7 @@ export default function Post() {
                 }
             }
             catch (e) {
-                toast.error(e?.response?.data?.message);
+                setError(true);
             }
             finally {
                 setLoading(false);
@@ -56,12 +58,16 @@ export default function Post() {
                     setCurrPost(res.data.post);
                 }
             } catch (e) {
-                console.error(e?.response?.data?.message);
+                setError(true);
             }
         };
 
         getCurrPost();
     }, [id]);
+
+    if(error){
+        return <InternalServerError/>
+    }
 
     return (
         <div>

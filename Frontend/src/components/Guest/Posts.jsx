@@ -4,10 +4,12 @@ import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
+import InternalServerError from './InternalServerError';
 
 export default function Posts() {
   let [posts, setAllPosts] = useState([]);
   let [loading, setLoading] = useState(false);
+  let [error , setError] = useState(false);
 
   useEffect(() => {
     const getAllPosts = async () => {
@@ -20,7 +22,7 @@ export default function Posts() {
         }
       }
       catch (e) {
-        toast.error(e?.response?.data?.message);
+        setError(true);
       }
       finally {
         setLoading(false);
@@ -29,6 +31,10 @@ export default function Posts() {
 
     getAllPosts();
   }, []);
+
+  if (error) {
+    return <InternalServerError />
+  }
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);

@@ -162,6 +162,12 @@ export let deleteuser = async(req , res) => {
     try{
         let params = req.params;
         let id = params.id; // Delete hone wale user ki id.
+        var regex = new RegExp(/^[a-f\d]{24}$/i);
+        
+         // Validate ObjectId format
+        if (!regex.test(id)) {
+            return res.status(400).json({ success: false, message: "Invalid Post ID" });
+        }
 
         const user = await User.findOne({_id : id});
         if(!user){
@@ -200,6 +206,12 @@ export let updateuser = async(req , res) => {
     try{
         let params = req.params;
         let id = params.id; // update hone wale user ki id.
+        var regex = new RegExp(/^[a-f\d]{24}$/i);
+        
+         // Validate ObjectId format
+        if (!regex.test(id)) {
+            return res.status(400).json({ success: false, message: "Invalid Post ID" });
+        }
 
         let {role} = req.body;
 

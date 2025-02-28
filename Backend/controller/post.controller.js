@@ -62,6 +62,20 @@ export let getAllPosts = async (req, res) => {
 export let deletePost = async (req, res) => {
     try {
         let { id } = req.params;
+        var regex = new RegExp(/^[a-f\d]{24}$/i);
+        
+         // Validate ObjectId format
+        if (!regex.test(id)) {
+            return res.status(400).json({ success: false, message: "Invalid Post ID" });
+        }
+
+        let post = await Post.findById(id);
+        if(!post) {
+            return res.status(400).json({
+                success : false,
+                message: "Invalid Post ID"
+            })
+        }
 
         await Post.deleteOne({ _id: id });
 
@@ -93,8 +107,20 @@ let getFormattedDate = (d) => {
 export let getPostById = async (req, res) => {
     try {
         let { id } = req.params;
+        var regex = new RegExp(/^[a-f\d]{24}$/i);
+        
+         // Validate ObjectId format
+        if (!regex.test(id)) {
+            return res.status(400).json({ success: false, message: "Invalid Post ID" });
+        }
 
         let post = await Post.findById(id);
+        if(!post) {
+            return res.status(400).json({
+                success : false,
+                message: "Invalid Post ID"
+            })
+        }
 
         post.endingdate = getFormattedDate(post.endingdate);
         post.startingdate = getFormattedDate(post.startingdate);
@@ -113,6 +139,21 @@ export let getPostById = async (req, res) => {
 export let editPost = async(req , res) => {
     try{
         let {id} = req.params;
+        var regex = new RegExp(/^[a-f\d]{24}$/i);
+        
+         // Validate ObjectId format
+        if (!regex.test(id)) {
+            return res.status(400).json({ success: false, message: "Invalid Post ID" });
+        }
+
+        let post = await Post.findById(id);
+        if(!post) {
+            return res.status(400).json({
+                success : false,
+                message: "Invalid Post ID"
+            })
+        }
+        
         let { posttitle, postname, postshortname, totalvacancies, handpicked, briefinformation, startingdate, endingdate, qualification, applylink, youtubelink , officialwebsitelink , postcategory, location } = req.body;
         if (posttitle == "" || postname == "" || postshortname == "" || totalvacancies == "" || briefinformation == "" || startingdate == "" || endingdate == "" || qualification == "" || applylink == "" || postcategory == "" || location == "") {
             res.status(400).json({

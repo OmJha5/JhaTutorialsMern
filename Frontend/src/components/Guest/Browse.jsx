@@ -15,12 +15,14 @@ import {
 import { Link } from 'react-router-dom';
 import { setQuery } from '@/redux/postSlice';
 import { Loader2 } from 'lucide-react';
+import InternalServerError from './InternalServerError';
 
 export default function Browse() {
     let { query } = useSelector((state) => state.post);
     let [posts, setPosts] = useState([]);
     let dispatch = useDispatch();
     let [loading, setLoading] = useState(false);
+    let [error , setError] = useState(false);
 
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
@@ -42,7 +44,7 @@ export default function Browse() {
                 }
             }
             catch (e) {
-                console.log(e?.response?.data?.message);
+                setError(true);
             }
             finally {
                 setLoading(false);
@@ -66,6 +68,10 @@ export default function Browse() {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [dispatch]);
+
+    if (error) {
+        return <InternalServerError />
+    }
 
     return (
         <div>

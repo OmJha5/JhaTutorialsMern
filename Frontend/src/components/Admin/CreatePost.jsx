@@ -5,81 +5,84 @@ import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
 import useCheckUser from '@/hooks/useCheckUser';
 import { useSelector } from 'react-redux';
-import NavAdmin from './NavAdmin';  
-import NotificationBox from './NotificationBox';  
+import NavAdmin from './NavAdmin';
+import NotificationBox from './NotificationBox';
 import Tables from './Tables';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
+import InternalServerError from '../Guest/InternalServerError';
 
 export default function CreatePost() {
     useCheckUser();
-    let {user} = useSelector((state) => state.user)
-    let [tables , setTables] = useState([]);
-    let [boxes , setBoxes] = useState([]); // Notification box
+    let { user } = useSelector((state) => state.user)
+    let [tables, setTables] = useState([]);
+    let [boxes, setBoxes] = useState([]); // Notification box
     let navigate = useNavigate();
-    let [commonInfo , setCommonInfo] = useState({
-        posttitle : "" , postname : "" , postshortname : "" , totalvacancies : "" , briefinformation : "" , startingdate : "" , endingdate : "" , qualification : "" , applylink : "" , youtubelink : "" , officialwebsitelink : "" , postcategory : "" , location : "", file : "", handpicked : false,
+    let [commonInfo, setCommonInfo] = useState({
+        posttitle: "", postname: "", postshortname: "", totalvacancies: "", briefinformation: "", startingdate: "", endingdate: "", qualification: "", applylink: "", youtubelink: "", officialwebsitelink: "", postcategory: "", location: "", file: "", handpicked: false,
     });
-    let [loading , setLoading] = useState(false);
+    let [loading, setLoading] = useState(false);
+    let [error, setError] = useState(false);
 
     let isFormValid = () => {
-        if(commonInfo.posttitle == "" || commonInfo.postname == "" || commonInfo.postshortname == "" || isNaN(commonInfo.totalvacancies) || commonInfo.briefinformation == "" || commonInfo.startingdate == "" || commonInfo.endingdate == "" || commonInfo.qualification == "" || commonInfo.applylink == "" || commonInfo.postcategory == "" || commonInfo.location == "" || commonInfo.file == ""){
+        if (commonInfo.posttitle == "" || commonInfo.postname == "" || commonInfo.postshortname == "" || isNaN(commonInfo.totalvacancies) || commonInfo.briefinformation == "" || commonInfo.startingdate == "" || commonInfo.endingdate == "" || commonInfo.qualification == "" || commonInfo.applylink == "" || commonInfo.postcategory == "" || commonInfo.location == "" || commonInfo.file == "") {
             toast.error("All Fields are required!")
             return false;
         }
         return true;
     }
 
-    let submitHandler = async() => {
-        if(isFormValid()){
-            try{
-                
+    let submitHandler = async () => {
+        if (isFormValid()) {
+            try {
+
                 setLoading(true);
 
                 let data = new FormData();
-                data.append("posttitle" , commonInfo.posttitle);
-                data.append("postname" , commonInfo.postname);
-                data.append("postshortname" , commonInfo.postshortname);
-                data.append("totalvacancies" , commonInfo.totalvacancies);
-                data.append("briefinformation" , commonInfo.briefinformation);
-                data.append("startingdate" , commonInfo.startingdate);
-                data.append("endingdate" , commonInfo.endingdate);
-                data.append("qualification" , commonInfo.qualification);
-                data.append("applylink" , commonInfo.applylink);
-                data.append("youtubelink" , commonInfo.youtubelink);
-                data.append("officialwebsitelink" , commonInfo.officialwebsitelink);
-                data.append("postcategory" , commonInfo.postcategory);
-                data.append("location" , commonInfo.location);
-                data.append("handpicked" , commonInfo.handpicked);
-                data.append("file" , commonInfo.file);
-
-                console.log(commonInfo.file)
+                data.append("posttitle", commonInfo.posttitle);
+                data.append("postname", commonInfo.postname);
+                data.append("postshortname", commonInfo.postshortname);
+                data.append("totalvacancies", commonInfo.totalvacancies);
+                data.append("briefinformation", commonInfo.briefinformation);
+                data.append("startingdate", commonInfo.startingdate);
+                data.append("endingdate", commonInfo.endingdate);
+                data.append("qualification", commonInfo.qualification);
+                data.append("applylink", commonInfo.applylink);
+                data.append("youtubelink", commonInfo.youtubelink);
+                data.append("officialwebsitelink", commonInfo.officialwebsitelink);
+                data.append("postcategory", commonInfo.postcategory);
+                data.append("location", commonInfo.location);
+                data.append("handpicked", commonInfo.handpicked);
+                data.append("file", commonInfo.file);
 
                 // ✅ Convert objects to JSON before appending
                 data.append("tables", JSON.stringify(tables));
                 data.append("boxes", JSON.stringify(boxes));
 
-                let res = await axios.post(`${POST_API_ENDPOINT}/create` , data , {
-                    headers : {
-                        "Content-Type" : "multipart/form-data"
+                let res = await axios.post(`${POST_API_ENDPOINT}/create`, data, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
                     },
-                    withCredentials : true
+                    withCredentials: true
                 })
 
-                if(res.data.success){
+                if (res.data.success) {
                     toast.success(res.data.message);
                     navigate("/admin/posts");
                 }
             }
-            catch(e){
-                console.log(e);
-                toast.error(e?.response?.data?.message);
+            catch (e) {
+                setError(true);
             }
-            finally{
+            finally {
                 setLoading(false);
             }
         }
+    }
+
+    if (error) {
+        return <InternalServerError />
     }
 
     return (

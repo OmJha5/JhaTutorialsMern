@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 import { useDispatch } from 'react-redux';
 import { setQuery } from '@/redux/postSlice';
 import { Loader2 } from 'lucide-react';
+import InternalServerError from './InternalServerError';
 
 export default function Home() {
   let [posts, setPosts] = useState([]);
@@ -16,6 +17,7 @@ export default function Home() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let [loading, setLoading] = useState(false);
+  let [error, setError] = useState(false);
 
   let categoryHandler = (e) => {
     let text = e.target.innerText;
@@ -36,7 +38,7 @@ export default function Home() {
         }
       }
       catch (e) {
-        toast.error(e?.response?.data?.message);
+        setError(true);
       }
       finally {
         setLoading(false);
@@ -57,7 +59,7 @@ export default function Home() {
         }
       }
       catch (e) {
-        toast.error(e?.response?.data?.message)
+        setError(true);
       }
     }
 
@@ -75,13 +77,16 @@ export default function Home() {
         }
       }
       catch (e) {
-        console.log(e);
-        toast.error(e?.response?.data?.message)
+        setError(true);
       }
     }
 
     getPgAndGraduationPosts();
   }, [])
+
+  if (error) {
+    return <InternalServerError />
+  }
 
 
   const marqueeRef1 = useRef(null);

@@ -12,6 +12,7 @@ import EditPost from './components/Admin/EditPost'
 import Browse from './components/Guest/Browse'
 import Donate from './components/Guest/Donate'
 import About from './components/Guest/About'
+import NotFound from './components/Guest/NotFound'
 
 const appRouter = createBrowserRouter([
     {
@@ -61,6 +62,10 @@ const appRouter = createBrowserRouter([
     {
         path : "/admin/posts/edit/:id",
         element : <EditPost/>
+    },
+    {
+        path : "*",
+        element : <NotFound/>
     },
     
 ])
