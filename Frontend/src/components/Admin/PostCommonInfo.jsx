@@ -63,54 +63,54 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
     }
 
     return (
-        <Card className="p-6 shadow-md rounded-2xl bg-white">
+        <Card className="p-6 max-sm:p-3 shadow-md rounded-2xl bg-white">
             <CardContent className="flex flex-col gap-6">
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="posttitle">Post Title</Label>
-                    <Input id="posttitle" placeholder="Enter post title" value={commonInfo.posttitle}
+                    <Input id="posttitle" className="max-sm:text-sm" placeholder="Enter post title" value={commonInfo.posttitle}
                         onChange={(e) => setCommonInfo({ ...commonInfo, posttitle: e.target.value })} />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="postname">Post Name</Label>
-                        <Input id="postname" placeholder="Enter post Name" value={commonInfo.postname}
+                        <Input id="postname" className="max-sm:text-sm" placeholder="Enter post Name" value={commonInfo.postname}
                             onChange={(e) => setCommonInfo({ ...commonInfo, postname: e.target.value })} />
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="postshortname">Post Short Name</Label>
-                        <Input id="postshortname" placeholder="Enter post Short name" value={commonInfo.postshortname}
+                        <Input id="postshortname" className="max-sm:text-sm" placeholder="Enter post Short name" value={commonInfo.postshortname}
                             onChange={(e) => setCommonInfo({ ...commonInfo, postshortname: e.target.value })} />
                     </div>
                 </div>
 
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="applylink">Apply Link</Label>
-                    <Input id="applylink" placeholder="Enter post apply link" value={commonInfo.applylink}
+                    <Input id="applylink" className="max-sm:text-sm" placeholder="Enter post apply link" value={commonInfo.applylink}
                         onChange={(e) => setCommonInfo({ ...commonInfo, applylink: e.target.value })} />
                 </div>
 
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="youtubelink">Youtube link</Label>
-                    <Input id="youtubelink" placeholder="Enter YT video link" value={commonInfo.youtubelink}
+                    <Input id="youtubelink" className="max-sm:text-sm" placeholder="Enter YT video link" value={commonInfo.youtubelink}
                         onChange={(e) => setCommonInfo({ ...commonInfo, youtubelink: e.target.value })} />
                 </div>
 
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="officialwebsitelink">Official Website Link</Label>
-                    <Input id="officialwebsitelink" placeholder="Enter official website link" value={commonInfo.officialwebsitelink}
+                    <Input id="officialwebsitelink" className="max-sm:text-sm" placeholder="Enter official website link" value={commonInfo.officialwebsitelink}
                         onChange={(e) => setCommonInfo({ ...commonInfo, officialwebsitelink: e.target.value })} />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="startingdate">Starting Date</Label>
-                        <Input id="startingdate" type="date" value={commonInfo.startingdate}
+                        <Input id="startingdate" className="max-sm:text-sm" type="date" value={commonInfo.startingdate}
                             onChange={(e) => setCommonInfo({ ...commonInfo, startingdate: e.target.value })} />
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="endingdate">Ending Date</Label>
-                        <Input id="endingdate" type="date" value={commonInfo.endingdate}
+                        <Input id="endingdate" className="max-sm:text-sm" type="date" value={commonInfo.endingdate}
                             onChange={(e) => setCommonInfo({ ...commonInfo, endingdate: e.target.value })} />
                     </div>
                 </div>
@@ -118,23 +118,23 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="totalvacancies">Total Vacancies</Label>
-                        <Input id="totalvacancies" placeholder="Enter total vacancies" value={commonInfo.totalvacancies}
+                        <Input id="totalvacancies" className="max-sm:text-sm" placeholder="Enter total vacancies" value={commonInfo.totalvacancies}
                             onChange={(e) => setCommonInfo({ ...commonInfo, totalvacancies: e.target.value })} />
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="qualification">Qualification</Label>
-                        <Input id="qualification" placeholder="Enter Qualification" value={commonInfo.qualification}
+                        <Input id="qualification" className="max-sm:text-sm" placeholder="Enter Qualification" value={commonInfo.qualification}
                             onChange={(e) => setCommonInfo({ ...commonInfo, qualification: e.target.value })} />
                     </div>
                 </div>
 
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="location">Location</Label>
-                    <Input id="location" placeholder="Enter Location" value={commonInfo.location}
+                    <Input id="location" className="max-sm:text-sm" placeholder="Enter Location" value={commonInfo.location}
                         onChange={(e) => setCommonInfo({ ...commonInfo, location: e.target.value })} />
                 </div>
 
-                <div className="flex flex-col gap-4 w-full">
+                <div className="flex flex-col gap-4 w-full max-sm:text-sm">
                     <Label>Post Category</Label>
                     {/* Select Area */}
                     <Popover className="w-full">
@@ -189,7 +189,7 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
 
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="briefinformation">Brief Information</Label>
-                    <Textarea id="briefinformation" placeholder="Enter brief information about the post" rows={3}
+                    <Textarea id="briefinformation" placeholder="Enter brief information about the post" className="max-sm:text-sm" rows={3}
                         value={commonInfo.briefinformation}
                         onChange={(e) => setCommonInfo({ ...commonInfo, briefinformation: e.target.value })} />
                 </div>
@@ -206,13 +206,13 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
-                        <span className='text-sm'>Want In Notification Box?</span>
+                    <div className="flex flex-col gap-2 max-sm:text-sm">
+                        <span className='max-sm:text-sm'>Want In Notification Box?</span>
                         <Select value={commonInfo?.handpicked ? "true" : "false"} onValueChange={(value) => setCommonInfo({ ...commonInfo, handpicked: value === "true" })}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Choose Yes / No" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="max-sm:text-sm">
                                 <SelectItem value="true">Yes</SelectItem>
                                 <SelectItem value="false">No</SelectItem>
                             </SelectContent>

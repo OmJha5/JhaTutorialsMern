@@ -16,13 +16,13 @@ export default function NotificationBox({ boxes, setBoxes }) {
     }
 
     return (
-        <div className='space-y-6 pr-3 mt-10'>
+        <div className='space-y-6 pr-3'>
             <Button onClick={addBox} className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">
                 Add Box
             </Button>
             {boxes.map((box, ind) => {
-                return <div key={box.id} className="w-full flex flex-col gap-5 shadow-md rounded-md">
-                    <div className='text-center text-2xl py-3 bg-gray-100'>
+                return <div key={box.id} className="w-full flex flex-col gap-5 max-sm:gap-2 shadow-md rounded-md">
+                    <div className='text-center text-2xl py-3 bg-gray-100 max-sm:text-lg'>
                         <EditableCell
                             value={box.heading}
                             onUpdate={(newValue) => {
@@ -32,7 +32,7 @@ export default function NotificationBox({ boxes, setBoxes }) {
                             }}
                         />
                     </div>
-                    <div>
+                    <div className='max-sm:text-sm'>
                         <EditableCell
                             value={box.content}
                             onUpdate={(newValue) => {
@@ -44,7 +44,7 @@ export default function NotificationBox({ boxes, setBoxes }) {
                     </div>
 
                     <div className="flex gap-2 justify-end">
-                        <Button className="px-4 my-3 py-2 rounded-lg text-red-600 bg-red-100 hover:bg-red-200 transition-all duration-300" onClick={() => deleteBoxHandler(ind)}>
+                        <Button className="px-4 mb-2 py-2 rounded-lg text-red-600 bg-red-100 hover:bg-red-200 transition-all duration-300" onClick={() => deleteBoxHandler(ind)}>
                             <FiTrash /> {/* Trash icon */}
                             Delete
                         </Button>

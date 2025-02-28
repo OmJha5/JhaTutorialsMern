@@ -89,33 +89,33 @@ const AdminPostsTable = ({ posts, setAllPosts, filteredPosts, setFilteredPosts }
     <div className="mt-10">
       <div>
 
-        <Table>
+        <Table className="overflow-x-auto">
           <TableCaption>A list of your created Posts.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-left">Post Name</TableHead>
+              <TableHead className="text-left whitespace-nowrap">Post Name</TableHead>
               <TableHead>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center whitespace-nowrap">
                   <span>Last Date</span>
                   <ArrowUpDown size={18} className="cursor-pointer text-red-400" onClick={sortEndingDate} />
                 </div>
               </TableHead>
-              <TableHead className="text-left">Notification Box (<span className="font-bold text-md">{countHandPicked}</span>)</TableHead>
-              <TableHead className="text-right">Action</TableHead>
+              <TableHead className="text-left whitespace-nowrap">Notification Box (<span className="font-bold text-md">{countHandPicked}</span>)</TableHead>
+              <TableHead className="text-right whitespace-nowrap">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {
               filteredPosts?.map((post) => {
                 return <TableRow key={post._id}>
-                  <TableCell>{post?.postname}</TableCell>
-                  <TableCell>{post?.endingdate}</TableCell>
-                  <TableCell>
+                  <TableCell className="whitespace-nowrap">{post?.postname}</TableCell>
+                  <TableCell className="whitespace-nowrap">{post?.endingdate}</TableCell>
+                  <TableCell className="whitespace-nowrap">
                     {
                       (post?.handpicked) ? <Check size={20} className="text-green-500" /> : <CircleX size={20} className="text-red-600" />
                     }
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right whitespace-nowrap">
                     <Popover>
                       <PopoverTrigger>
                         <MoreHorizontal />

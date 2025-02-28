@@ -16,3 +16,7 @@ ul {
 li {
   margin-bottom: 5px; /* Optional: adds spacing between list items */
 }
+
+.table .ProseMirror{
+  white-space: nowrap;
+}

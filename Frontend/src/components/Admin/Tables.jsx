@@ -4,10 +4,10 @@ import { Input } from "@/components/ui/input";
 import EditableCell from "./EditableCell"; // Import the new component
 import { FiTrash } from "react-icons/fi"; // Trash icon from react-icons
 
-export default function Tables({tables , setTables}) {
+export default function Tables({ tables, setTables }) {
 
   const addTable = () => {
-    setTables([...tables, { id: crypto.randomUUID() , name: "", headers: [], data: [[]] }]);
+    setTables([...tables, { id: crypto.randomUUID(), name: "", headers: [], data: [[]] }]);
   };
 
   const addColumn = (index) => {
@@ -50,10 +50,10 @@ export default function Tables({tables , setTables}) {
         Add Table
       </Button>
       {tables.map((table, index) => (
-        <div key={table.id} className="!my-10">
+        <div key={table.id} className="!my-10 overflow-x-auto py-4">
           {/* Table Name Input */}
           <Input
-            className="text-center !text-2xl !py-3 h-fit rounded-none focus-visible:ring-0 bg-gray-100"
+            className="text-center !text-2xl max-sm:!text-lg !py-3 h-fit rounded-none focus-visible:ring-0 bg-gray-100"
             value={table.name}
             onChange={(e) => {
               const newTables = [...tables];
@@ -64,10 +64,10 @@ export default function Tables({tables , setTables}) {
           />
 
           {/* Table Structure */}
-          <table className="table-auto w-full border border-gray-400">
+          <table className="min-w-full border border-gray-400 table">
             {/* Table Headers */}
             <thead>
-              <tr >
+              <tr>
                 {table.headers.map((header, colIndex) => (
                   <th key={colIndex} className="border border-gray-300 text-lg font-medium">
                     <EditableCell
@@ -86,9 +86,9 @@ export default function Tables({tables , setTables}) {
             {/* Table Body */}
             <tbody>
               {table.data.map((row, rowIndex) => (
-                <tr key={rowIndex} className="flex-1">
+                <tr key={rowIndex}>
                   {row.map((cell, colIndex) => (
-                    <td key={colIndex} className="border border-gray-300">
+                    <td key={colIndex} className="border border-gray-300 max-sm:text-sm">
                       <EditableCell
                         value={cell}
                         onUpdate={(newValue) => {
@@ -101,9 +101,9 @@ export default function Tables({tables , setTables}) {
                   ))}
                 </tr>
               ))}
-
             </tbody>
           </table>
+
 
           {/* Add Row and Column Buttons */}
           <div className="flex gap-2 justify-end mt-4">

@@ -91,8 +91,8 @@ export default function CreatePost() {
             <NavAdmin />
 
             {/* Main Content */}
-            <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-5 flex-col">
-                <h1 className='text-4xl font-medium'>Create New Post</h1>
+            <div className="flex-1 p-6 max-sm:p-3 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-5 flex-col">
+                <h1 className='text-4xl max-sm:text-2xl font-medium mt-4'>Create New Post</h1>
                 <div>
                     <Button onClick={() => navigate("/admin/posts")}><ArrowLeft size={24} /> <span className='ml-2'>Back</span></Button>
                 </div>

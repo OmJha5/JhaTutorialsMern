@@ -29,7 +29,7 @@ export default function NavAdmin() {
     }, [dispatch]);
 
     return (
-        <div className='fixed top-0 left-0 md:h-full max-md:w-full'>
+        <div className='fixed top-0 left-0 md:h-full max-md:w-full z-[10]'>
             {/* Mobile Sidebar Toggle */}
             <div className="md:hidden p-4 flex justify-between items-center bg-gray-900 text-white">
                 <h1 className="text-xl font-bold ">Admin Panel</h1>
