@@ -50,7 +50,7 @@ export default function Tables({ tables, setTables }) {
         Add Table
       </Button>
       {tables.map((table, index) => (
-        <div key={table.id} className="!my-10 overflow-x-auto py-4">
+        <div key={table.id} className="!my-10 overflow-x-auto py-4 max-sm:w-fit">
           {/* Table Name Input */}
           <Input
             className="text-center !text-2xl max-sm:!text-lg !py-3 h-fit rounded-none focus-visible:ring-0 bg-gray-100"

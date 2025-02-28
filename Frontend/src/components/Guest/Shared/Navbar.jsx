@@ -15,10 +15,12 @@ export default function Navbar() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
-  const handleClick = () => {
-      dispatch(setQuery(input)); 
-      navigate("/browse"); 
-      setInput(""); 
+  const keyDownHandler = (e) => {
+    if (e.key == "Enter") {
+      dispatch(setQuery(input));
+      navigate("/browse");
+      setInput("");
+    }
   };
 
   return (
@@ -35,6 +37,9 @@ export default function Navbar() {
                 type="text"
                 placeholder="Filter by Job name."
                 className="pl-10 pr-4 py-2 rounded-lg border-gray-300 focus-visible:ring-0 text-sm"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={keyDownHandler}
               />
             </div>
 
@@ -54,13 +59,14 @@ export default function Navbar() {
 
           {/* Input element(visible for >= large screens)  */}
           <div className="relative w-52 hidden lg:block">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:cursor-pointer" size={18} onClick={handleClick} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:cursor-pointer" size={18} />
             <Input
               type="text"
               placeholder="Filter by Job name."
               className="pl-10 pr-4 py-2 rounded-lg border-gray-300 focus-visible:ring-0"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={keyDownHandler}
             />
           </div>
 
