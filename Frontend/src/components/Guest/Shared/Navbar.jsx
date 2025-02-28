@@ -31,7 +31,7 @@ export default function Navbar() {
         <div className="flex lg:justify-between lg:items-center relative">
           {/* Logo , input(disabled for >= large screens) , nav items */}
           <div className="max-lg:flex-col max-lg:gap-5 lg:gap-10 flex xl:gap-20  items-center max-lg:w-full">
-            <img src={logo} alt="Jha Tutorials" className="w-[60px] h-[60px] rounded-full cursor-pointer" onClick={() => navigate("/")} />
+            <img src={logo} alt="Jha Tutorials" className="w-[75px] h-[75px] rounded-full cursor-pointer" onClick={() => navigate("/")} />
             <div className="relative lg:hidden max-lg:w-[80%]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <Input
@@ -84,14 +84,14 @@ export default function Navbar() {
       >
         <div className="flex flex-col items-center space-y-4 py-4 text-sm">
           <Link to="/">Home</Link>
-          <Link to="/jobs">Latest Jobs</Link>
+          <Link to="/posts">Latest Jobs</Link>
           <Link to="#" onClick={(e) => {
             e.preventDefault()
             toast.success("We will Roll out this feature soon..")
           }}>Cources</Link>
 
-          <Link to="#">Donate Us</Link>
-          <Link to="#">About Us</Link>
+          <Link to="/donate">Donate Us</Link>
+          <Link to="/about">About Us</Link>
         </div>
       </motion.div>
     </nav>
