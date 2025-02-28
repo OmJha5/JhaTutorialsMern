@@ -9,7 +9,7 @@ import InternalServerError from './InternalServerError';
 export default function Posts() {
   let [posts, setAllPosts] = useState([]);
   let [loading, setLoading] = useState(false);
-  let [error , setError] = useState(false);
+  let [error, setError] = useState(false);
 
   useEffect(() => {
     const getAllPosts = async () => {
@@ -45,6 +45,13 @@ export default function Posts() {
     });
   };
 
+  const isNewPost = (createdAt) => {
+    const postTime = new Date(createdAt);
+    const now = new Date();
+    const diffInHours = (now - postTime) / (1000 * 60 * 60); // Convert milliseconds to hours
+    return diffInHours <= 6; // Returns true if within 6 hours
+};
+
   return (
     <div>
       {
@@ -63,7 +70,7 @@ export default function Posts() {
                 {posts.map((post) => (
                   <div
                     key={post._id}
-                    className="bg-white border border-gray-300 p-6 max-sm:p-4 rounded-xl shadow-md hover:shadow-2xl transition-all ease-in-out duration-300 transform hover:scale-105"
+                    className="bg-white border relative border-gray-300 p-6 max-sm:p-4 rounded-xl shadow-md hover:shadow-2xl transition-all ease-in-out duration-300 transform hover:scale-105"
                   >
                     <Link
                       to={`/post/${post._id}`}
@@ -71,6 +78,9 @@ export default function Posts() {
                     >
                       {post?.postname}
                     </Link>
+                    {isNewPost(post.createdAt) && ( // Display posts with new badge if is created within 6 hours.
+                      <span className="bg-red-500 absolute left-[-15px] top-[-8px] text-white text-xs font-bold px-2 py-1 rounded">New</span>
+                    )}
                     <div className="mt-4 sm:mt-2 text-gray-700">
                       <p>
                         <span className="font-medium text-sm">Last Date: </span>

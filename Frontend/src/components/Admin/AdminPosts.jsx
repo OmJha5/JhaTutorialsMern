@@ -54,13 +54,13 @@ export default function AdminPosts() {
         let updatedAllPosts = posts.filter((post) =>
             post.posttitle.toLowerCase().includes(text.toLowerCase()) || post.briefinformation.toLowerCase().includes(text.toLowerCase())
             || post.location.toLowerCase().includes(text.toLowerCase()) || post.qualification.toLowerCase().includes(text.toLowerCase())
-            || post.postcategory.toLowerCase().includes(text.toLowerCase())
+            || post.postcategory.toLowerCase().includes(text.toLowerCase()) || post.youtubelink.toLowerCase().includes(text.toLowerCase())
         )
 
         setFilteredPosts(updatedAllPosts)
 
     }
-
+    
     if (error) {
         return <InternalServerError />
     }
