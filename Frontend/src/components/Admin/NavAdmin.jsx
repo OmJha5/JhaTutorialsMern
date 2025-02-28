@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Home, Users, Menu, X, BriefcaseBusiness } from "lucide-react";
@@ -11,8 +11,22 @@ export default function NavAdmin() {
     let { activeTab } = useSelector((state) => state.user);
     let [sidebarOpen, setSidebarOpen] = useState(false);
     let dispatch = useDispatch();
-
     let navigate = useNavigate();
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            // Dispatch the action when the user leaves the page
+            dispatch(setActiveTab("Dashboard"));  
+        };
+
+        // Attach the beforeunload event listener
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [dispatch]);
 
     return (
         <div className='fixed top-0 left-0 md:h-full max-md:w-full'>

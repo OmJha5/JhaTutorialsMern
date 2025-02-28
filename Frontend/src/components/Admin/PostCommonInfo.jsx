@@ -7,7 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Upload } from 'lucide-react';
 import { Checkbox } from '@radix-ui/react-checkbox';
 import { Check, ChevronsUpDown } from "lucide-react"
-
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import {
     Command,
@@ -31,8 +37,8 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
 
     useEffect(() => {
         const str = value.join(" ");
-        setCommonInfo({...commonInfo , postcategory : str})
-    } , [value])
+        setCommonInfo({ ...commonInfo, postcategory: str })
+    }, [value])
 
     const frameworks = [
         { value: 'teaching', label: 'Teaching' },
@@ -48,11 +54,11 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
     ];
 
     let handleSetValue = (val) => {
-        if(value.includes(val)){
+        if (value.includes(val)) {
             setValue(value.filter((v) => v != val));
         }
-        else{
-            setValue([...value , val]);
+        else {
+            setValue([...value, val]);
         }
     }
 
@@ -144,7 +150,7 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                                         value.map((val, i) => (
                                             <div key={i} className="px-2 py-1 rounded-xl border bg-slate-200 text-xs font-medium">{frameworks.find((framework) => framework.value === val)?.label}</div>
                                         ))
-                                        : "Select framework..."}
+                                        : "Select category..."}
                                 </div>
 
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -152,7 +158,7 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                         </PopoverTrigger>
                         <PopoverContent className="w-full p-0 min-w-[var(--radix-popover-trigger-width)]">
                             <Command>
-                                <CommandInput placeholder="Search framework..." />
+                                <CommandInput placeholder="Search Category..." />
                                 <CommandList>
                                     <CommandEmpty>No framework found.</CommandEmpty>
                                     <CommandGroup>
@@ -168,7 +174,7 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                                                     className={cn(
                                                         "mr-2 h-4 w-4",
                                                         value.includes(framework.value) ? "opacity-100" : "opacity-0"
-                                                        
+
                                                     )}
                                                 />
                                                 {framework.label}
@@ -188,14 +194,29 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                         onChange={(e) => setCommonInfo({ ...commonInfo, briefinformation: e.target.value })} />
                 </div>
 
-                <div className="flex flex-col gap-4">
-                    <Label>Notification PDF</Label>
-                    <div className="flex items-center gap-3">
-                        <Button variant="outline" className="flex items-center gap-2" onClick={() => inputRef.current.click()}>
-                            <Upload size={16} /> Upload File
-                            <Input ref={inputRef} type="file" className="hidden" onChange={(e) => setCommonInfo({ ...commonInfo, file: e?.target?.files?.[0] })} />
-                        </Button>
-                        {commonInfo.file && <span className="text-sm text-gray-600">{commonInfo.file.name}</span>}
+                <div className="flex justify-between">
+                    <div className="flex flex-col gap-4">
+                        <Label>Notification PDF</Label>
+                        <div className="flex items-center gap-3">
+                            <Button variant="outline" className="flex items-center gap-2" onClick={() => inputRef.current.click()}>
+                                <Upload size={16} /> Upload File
+                                <Input ref={inputRef} type="file" className="hidden" onChange={(e) => setCommonInfo({ ...commonInfo, file: e?.target?.files?.[0] })} />
+                            </Button>
+                            {commonInfo.file && <span className="text-sm text-gray-600">{commonInfo.file.name}</span>}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <span className='text-sm'>Want In Notification Box?</span>
+                        <Select value={commonInfo?.handpicked ? "true" : "false"} onValueChange={(value) => setCommonInfo({ ...commonInfo, handpicked: value === "true" })}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Choose Yes / No" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="true">Yes</SelectItem>
+                                <SelectItem value="false">No</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
             </CardContent>

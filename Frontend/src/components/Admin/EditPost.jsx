@@ -19,7 +19,7 @@ export default function EditPost() {
     let [boxes, setBoxes] = useState([]); // Notification box
     let navigate = useNavigate();
     let [commonInfo, setCommonInfo] = useState({
-        posttitle: "", postname: "", postshortname: "", totalvacancies: "", briefinformation: "", startingdate: "", endingdate: "", qualification: "", applylink: "", youtubelink : "" , officialwebsitelink : "", postcategory: "", location: "", file: "",
+        posttitle: "", postname: "", postshortname: "", totalvacancies: "", briefinformation: "", startingdate: "", endingdate: "", qualification: "", applylink: "", youtubelink : "" , officialwebsitelink : "", postcategory: "", location: "", file: "", handpicked : false
     });
     let [loading, setLoading] = useState(false);
     let [pageLoading, setPageLoading] = useState(false);
@@ -44,8 +44,11 @@ export default function EditPost() {
                         endingdate: post.endingdate,
                         qualification: post.qualification,
                         applylink: post.applylink,
+                        youtubelink: post.youtubelink,
+                        officialwebsitelink: post.officialwebsitelink,
                         postcategory: post.postcategory,
                         location: post.location,
+                        handpicked : post.handpicked
                     })
 
                     setBoxes(post.boxes);
@@ -90,6 +93,7 @@ export default function EditPost() {
                 data.append("officialwebsitelink", commonInfo.officialwebsitelink);
                 data.append("postcategory", commonInfo.postcategory);
                 data.append("location", commonInfo.location);
+                data.append("handpicked", commonInfo.handpicked);
                 if (commonInfo.file) data.append("file", commonInfo.file);
 
                 // ✅ Convert objects to JSON before appending

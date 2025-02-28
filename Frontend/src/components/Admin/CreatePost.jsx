@@ -19,7 +19,7 @@ export default function CreatePost() {
     let [boxes , setBoxes] = useState([]); // Notification box
     let navigate = useNavigate();
     let [commonInfo , setCommonInfo] = useState({
-        posttitle : "" , postname : "" , postshortname : "" , totalvacancies : "" , briefinformation : "" , startingdate : "" , endingdate : "" , qualification : "" , applylink : "" , youtubelink : "" , officialwebsitelink : "" , postcategory : "" , location : "", file : "",
+        posttitle : "" , postname : "" , postshortname : "" , totalvacancies : "" , briefinformation : "" , startingdate : "" , endingdate : "" , qualification : "" , applylink : "" , youtubelink : "" , officialwebsitelink : "" , postcategory : "" , location : "", file : "", handpicked : false,
     });
     let [loading , setLoading] = useState(false);
 
@@ -51,6 +51,7 @@ export default function CreatePost() {
                 data.append("officialwebsitelink" , commonInfo.officialwebsitelink);
                 data.append("postcategory" , commonInfo.postcategory);
                 data.append("location" , commonInfo.location);
+                data.append("handpicked" , commonInfo.handpicked);
                 data.append("file" , commonInfo.file);
 
                 console.log(commonInfo.file)

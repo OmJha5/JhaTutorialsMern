@@ -15,6 +15,7 @@ const postSchema = new mongoose.Schema({
     notificationLink : {type : String , required : true},
     youtubelink : {type : String , default : ""},
     officialwebsitelink : {type : String , default : ""},
+    handpicked: { type: Boolean, default: false }, // To control whether post should be added in notification box or not
     
     tables : [
         {   
@@ -24,7 +25,7 @@ const postSchema = new mongoose.Schema({
             },
             name: {
                 type: String,
-                required: true,  // Ensures that 'name' is always provided
+                required: true,  
             },
             headers: {
                 type: [String],   // Array of strings for headers

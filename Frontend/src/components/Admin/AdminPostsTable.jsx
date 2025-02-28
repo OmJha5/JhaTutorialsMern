@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
-import { ArrowUpDown, Edit, Edit2, MoreHorizontal, Trash, Trash2 } from 'lucide-react'
+import { ArrowUpDown, Check, CircleX, Edit, Edit2, MoreHorizontal, Trash, Trash2 } from 'lucide-react'
 import { useNavigate } from "react-router-dom";
 import {
   Table,
@@ -18,6 +18,25 @@ import {
 const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts}) => {
   let navigate = useNavigate();
   let [isIncr, setIsIncr] = useState(true);
+  let [countHandPicked , setHandPicked] = useState(0);
+
+  useEffect(() => {
+
+    let getCountOfHandPickedPosts = async() => {
+      try{
+        let res = await axios.get(`${POST_API_ENDPOINT}/gethandpickedposts` , {withCredentials : true});
+
+        if(res.data.success){
+          setHandPicked(res.data.countHandpicked);
+        }
+      }
+      catch(e){
+        toast.error(e?.response?.data?.message);
+      }
+    }
+
+    getCountOfHandPickedPosts();
+  } , [])
 
   let sortEndingDate = async () => {
     const sortedPosts = [...posts].sort((a, b) => {
@@ -73,6 +92,7 @@ const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts
                   <ArrowUpDown size={18} className="cursor-pointer text-red-400" onClick={sortEndingDate} />
                 </div>
               </TableHead>
+              <TableHead className="text-left">Notification Box (<span className="font-bold text-md">{countHandPicked}</span>)</TableHead>
               <TableHead className="text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -82,6 +102,11 @@ const AdminPostsTable = ({posts , setAllPosts , filteredPosts , setFilteredPosts
                 return <TableRow key={post._id}>
                   <TableCell>{post?.postname}</TableCell>
                   <TableCell>{post?.endingdate}</TableCell>
+                  <TableCell>
+                    {
+                      (post?.handpicked) ? <Check size={20} className="text-green-500"/> : <CircleX size={20} className="text-red-600" />
+                    }
+                  </TableCell>
                   <TableCell className="text-right">
                     <Popover>
                       <PopoverTrigger>
