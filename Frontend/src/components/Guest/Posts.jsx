@@ -50,9 +50,7 @@ export default function Posts() {
 
   return (
     <div>
-      {error ? (
-        <InternalServerError />
-      ) : loading ? (
+      {loading ? (
         <div className='w-full h-screen flex justify-center items-center'>
           <Loader2 className='animate-spin' size={25} />
         </div>
