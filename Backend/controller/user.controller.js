@@ -49,7 +49,7 @@ export let login = async (req , res) => {
             role : user.role,
         }
         
-        return res.status(200).cookie("jhaTutorialsToken" , token , {maxAge : 7 * 24 * 60 * 60 * 1000 , httpOnly:true , sameSite:"lax" , secure:process.env.NODE_ENV=="production"}).json({
+        return res.status(200).cookie("jhaTutorialsToken" , token , {maxAge : 7 * 24 * 60 * 60 * 1000 , httpOnly:true , sameSite:process.env.NODE_ENV=="production" ? "none" : "lex" , secure:process.env.NODE_ENV=="production"}).json({
             user: user,
             success : true
         })
