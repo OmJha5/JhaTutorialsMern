@@ -81,38 +81,42 @@ export default function CreatePost() {
         }
     }
 
-    if (error) {
-        return <InternalServerError />
-    }
-
     return (
 
-        <div className="flex h-fit flex-col md:flex-row relative">
-            <NavAdmin />
+        <div>
+            {
+                (error) ? (
+                    <InternalServerError />
+                ) : (
+                    <div className="flex h-fit flex-col md:flex-row relative">
+                        <NavAdmin />
 
-            {/* Main Content */}
-            <div className="flex-1 p-6 max-sm:p-3 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-5 flex-col">
-                <h1 className='text-4xl max-sm:text-2xl font-medium mt-4'>Create New Post</h1>
-                <div>
-                    <Button onClick={() => navigate("/admin/posts")}><ArrowLeft size={24} /> <span className='ml-2'>Back</span></Button>
-                </div>
+                        {/* Main Content */}
+                        <div className="flex-1 p-6 max-sm:p-3 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out flex gap-5 flex-col">
+                            <h1 className='text-4xl max-sm:text-2xl font-medium mt-4'>Create New Post</h1>
+                            <div>
+                                <Button onClick={() => navigate("/admin/posts")}><ArrowLeft size={24} /> <span className='ml-2'>Back</span></Button>
+                            </div>
 
-                <div>
-                    <JobCommonInfo commonInfo={commonInfo} setCommonInfo={setCommonInfo} />
-                </div>
+                            <div>
+                                <JobCommonInfo commonInfo={commonInfo} setCommonInfo={setCommonInfo} />
+                            </div>
 
-                {/* Tables */}
-                <Tables tables={tables} setTables={setTables} />
+                            {/* Tables */}
+                            <Tables tables={tables} setTables={setTables} />
 
-                {/* Notification Box */}
-                <NotificationBox boxes={boxes} setBoxes={setBoxes} />
+                            {/* Notification Box */}
+                            <NotificationBox boxes={boxes} setBoxes={setBoxes} />
 
-                {
-                    loading ? <Button className="my-10 w-fit"><Loader2 className='animate-spin' /> <span className='ml-2'>please wait..</span></Button> : <Button className="my-10 w-fit" onClick={submitHandler}>Add Post</Button>
-                }
-            </div>
+                            {
+                                loading ? <Button className="my-10 w-fit"><Loader2 className='animate-spin' /> <span className='ml-2'>please wait..</span></Button> : <Button className="my-10 w-fit" onClick={submitHandler}>Add Post</Button>
+                            }
+                        </div>
 
 
+                    </div>
+                )
+            }
         </div>
 
     )

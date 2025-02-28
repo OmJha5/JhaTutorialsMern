@@ -23,7 +23,7 @@ export default function DialogCreateUser({ open, setOpen, allUsers, setAllUsers 
     })
     let [loading, setLoading] = useState(false);
     let dispatch = useDispatch();
-    let [error , setError] = useState(false);
+    let [error, setError] = useState(false);
 
     let isValidEmail = () => {
         var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
@@ -88,47 +88,51 @@ export default function DialogCreateUser({ open, setOpen, allUsers, setAllUsers 
         setInput({ ...input, [e.target.name]: e.target.value });
     }
 
-    if (error) {
-        return <InternalServerError />
-    }
-
     return (
         <div>
-            <Dialog open={open}>
-                <DialogContent onInteractOutside={() => setOpen(false)} className="w-[95%]">
-                    <DialogHeader>
-                        <DialogTitle>Create User</DialogTitle>
-                    </DialogHeader>
+            {
+                (error) ? (
+                    <InternalServerError />
+                ) : (
+                    <div>
+                        <Dialog open={open}>
+                            <DialogContent onInteractOutside={() => setOpen(false)} className="w-[95%]">
+                                <DialogHeader>
+                                    <DialogTitle>Create User</DialogTitle>
+                                </DialogHeader>
 
-                    <form onSubmit={submitHandler} className='flex flex-col gap-5 my-3'>
-                        <div>
-                            <Label className="mb-2" htmlFor="email" >Email</Label>
-                            <Input name="email" id="email" value={input.email} onChange={changeEventHandler} />
-                        </div>
+                                <form onSubmit={submitHandler} className='flex flex-col gap-5 my-3'>
+                                    <div>
+                                        <Label className="mb-2" htmlFor="email" >Email</Label>
+                                        <Input name="email" id="email" value={input.email} onChange={changeEventHandler} />
+                                    </div>
 
-                        <div>
-                            <Label className="mb-2" htmlFor="password" >Password</Label>
-                            <Input type="password" name="password" id="password" value={input.password} onChange={changeEventHandler} />
-                        </div>
+                                    <div>
+                                        <Label className="mb-2" htmlFor="password" >Password</Label>
+                                        <Input type="password" name="password" id="password" value={input.password} onChange={changeEventHandler} />
+                                    </div>
 
-                        <div className='flex gap-6'>
-                            <div className="flex gap-2 items-center">
-                                <Input type="radio" name="role" id="admin" value="admin" onChange={changeEventHandler} />
-                                <Label htmlFor="admin" >Admin</Label>
-                            </div>
+                                    <div className='flex gap-6'>
+                                        <div className="flex gap-2 items-center">
+                                            <Input type="radio" name="role" id="admin" value="admin" onChange={changeEventHandler} />
+                                            <Label htmlFor="admin" >Admin</Label>
+                                        </div>
 
-                            <div className="flex gap-2 items-center">
-                                <Input type="radio" name="role" id="superadmin" value="superadmin" onChange={changeEventHandler} />
-                                <Label htmlFor="superadmin" >Superadmin</Label>
-                            </div>
-                        </div>
+                                        <div className="flex gap-2 items-center">
+                                            <Input type="radio" name="role" id="superadmin" value="superadmin" onChange={changeEventHandler} />
+                                            <Label htmlFor="superadmin" >Superadmin</Label>
+                                        </div>
+                                    </div>
 
-                        {
-                            (loading) ? <Button className="bg-blue-500 hover:bg-blue-400"><Loader2 className='animate-spin w-5 h-5 mr-2' /><span>Please wait..</span></Button> : <Button type="submit" className="mt-3 h-0 py-4 bg-blue-500 hover:bg-blue-400">Submit</Button>
-                        }
-                    </form>
-                </DialogContent>
-            </Dialog>
+                                    {
+                                        (loading) ? <Button className="bg-blue-500 hover:bg-blue-400"><Loader2 className='animate-spin w-5 h-5 mr-2' /><span>Please wait..</span></Button> : <Button type="submit" className="mt-3 h-0 py-4 bg-blue-500 hover:bg-blue-400">Submit</Button>
+                                    }
+                                </form>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
+                )
+            }
         </div>
     )
 }

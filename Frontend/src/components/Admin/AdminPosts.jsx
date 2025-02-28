@@ -60,34 +60,31 @@ export default function AdminPosts() {
         setFilteredPosts(updatedAllPosts)
 
     }
-    
-    if (error) {
-        return <InternalServerError />
-    }
 
     return (
         <div>
-            {
-                loading ? (
-                    <div className='w-full h-screen flex justify-center items-center'>
-                        <Loader2 className='animate-spin' size={25} />
-                    </div>
-                ) : (
-                    <div className="flex h-screen flex-col md:flex-row relative">
-                        <NavAdmin />
+            {error ? (
+                <InternalServerError />
+            ) : loading ? (
+                <div className='w-full h-screen flex justify-center items-center'>
+                    <Loader2 className='animate-spin' size={25} />
+                </div>
+            ) : (
+                <div className="flex h-screen flex-col md:flex-row relative">
+                    <NavAdmin />
 
-                        {/* Main Content */}
-                        <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out sm:mr-16">
-                            <div className="flex justify-between max-sm:flex-col max-sm:gap-4 items-center">
-                                <Input placeholder="Filter by Any Thing" className="w-fit" onChange={filterHandler} autoFocus onFocus={(e) => e.target.focus()} />
-                                <Button className="bg-blue-500 w-fit hover:bg-blue-400 hover:cursor-pointer" onClick={() => navigate("/admin/posts/create")}>Create</Button>
-                            </div>
-
-                            <AdminPostsTable posts={posts} setAllPosts={setAllPosts} filteredPosts={filteredPosts} setFilteredPosts={setFilteredPosts} />
-
+                    {/* Main Content */}
+                    <div className="flex-1 p-6 md:ml-80 max-md:mt-16 transition-all duration-300 ease-in-out sm:mr-16">
+                        <div className="flex justify-between max-sm:flex-col max-sm:gap-4 items-center">
+                            <Input placeholder="Filter by Any Thing" className="w-fit" onChange={filterHandler} autoFocus onFocus={(e) => e.target.focus()} />
+                            <Button className="bg-blue-500 w-fit hover:bg-blue-400 hover:cursor-pointer" onClick={() => navigate("/admin/posts/create")}>Create</Button>
                         </div>
+
+                        <AdminPostsTable posts={posts} setAllPosts={setAllPosts} filteredPosts={filteredPosts} setFilteredPosts={setFilteredPosts} />
+
                     </div>
-                )
+                </div>
+            )
             }
         </div>
     );

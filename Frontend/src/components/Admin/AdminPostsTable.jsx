@@ -66,8 +66,8 @@ const AdminPostsTable = ({ posts, setAllPosts, filteredPosts, setFilteredPosts }
   let deletePost = async (id) => {
     try {
       let wantToDelete = confirm("Do you want to do delete it ??")
-      if(!wantToDelete ) return ;
-      
+      if (!wantToDelete) return;
+
       let res = await axios.delete(`${POST_API_ENDPOINT}/delete/${id}`, { withCredentials: true });
 
       if (res.data.success) {
@@ -81,59 +81,63 @@ const AdminPostsTable = ({ posts, setAllPosts, filteredPosts, setFilteredPosts }
     }
   }
 
-  if (error) {
-    return <InternalServerError />
-  }
-
   return (
-    <div className="mt-10">
-      <div>
+    <div>
+      {
+        (error) ? (
+          <InternalServerError />
+        ) : (
+          <div className="mt-10">
+            <div>
 
-        <Table className="overflow-x-auto">
-          <TableCaption>A list of your created Posts.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-left whitespace-nowrap">Post Name</TableHead>
-              <TableHead>
-                <div className="flex gap-2 items-center whitespace-nowrap">
-                  <span>Last Date</span>
-                  <ArrowUpDown size={18} className="cursor-pointer text-red-400" onClick={sortEndingDate} />
-                </div>
-              </TableHead>
-              <TableHead className="text-left whitespace-nowrap">Notification Box (<span className="font-bold text-md">{countHandPicked}</span>)</TableHead>
-              <TableHead className="text-right whitespace-nowrap">Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {
-              filteredPosts?.map((post) => {
-                return <TableRow key={post._id}>
-                  <TableCell className="whitespace-nowrap">{post?.postname}</TableCell>
-                  <TableCell className="whitespace-nowrap">{post?.endingdate}</TableCell>
-                  <TableCell className="whitespace-nowrap">
-                    {
-                      (post?.handpicked) ? <Check size={20} className="text-green-500" /> : <CircleX size={20} className="text-red-600" />
-                    }
-                  </TableCell>
-                  <TableCell className="text-right whitespace-nowrap">
-                    <Popover>
-                      <PopoverTrigger>
-                        <MoreHorizontal />
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <div className="flex gap-3 bg-white shadow-lg rounded-md p-3">
-                          <Edit2 size={20} className="hover:cursor-pointer" onClick={() => navigate(`/admin/posts/edit/${post._id}`)} />
-                          <Trash2 size={20} className="hover:cursor-pointer text-red-500" onClick={() => deletePost(post?._id)} />
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  </TableCell>
-                </TableRow>
-              })
-            }
-          </TableBody>
-        </Table>
-      </div>
+              <Table className="overflow-x-auto">
+                <TableCaption>A list of your created Posts.</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-left whitespace-nowrap">Post Name</TableHead>
+                    <TableHead>
+                      <div className="flex gap-2 items-center whitespace-nowrap">
+                        <span>Last Date</span>
+                        <ArrowUpDown size={18} className="cursor-pointer text-red-400" onClick={sortEndingDate} />
+                      </div>
+                    </TableHead>
+                    <TableHead className="text-left whitespace-nowrap">Notification Box (<span className="font-bold text-md">{countHandPicked}</span>)</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {
+                    filteredPosts?.map((post) => {
+                      return <TableRow key={post._id}>
+                        <TableCell className="whitespace-nowrap">{post?.postname}</TableCell>
+                        <TableCell className="whitespace-nowrap">{post?.endingdate}</TableCell>
+                        <TableCell className="whitespace-nowrap">
+                          {
+                            (post?.handpicked) ? <Check size={20} className="text-green-500" /> : <CircleX size={20} className="text-red-600" />
+                          }
+                        </TableCell>
+                        <TableCell className="text-right whitespace-nowrap">
+                          <Popover>
+                            <PopoverTrigger>
+                              <MoreHorizontal />
+                            </PopoverTrigger>
+                            <PopoverContent>
+                              <div className="flex gap-3 bg-white shadow-lg rounded-md p-3">
+                                <Edit2 size={20} className="hover:cursor-pointer" onClick={() => navigate(`/admin/posts/edit/${post._id}`)} />
+                                <Trash2 size={20} className="hover:cursor-pointer text-red-500" onClick={() => deletePost(post?._id)} />
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        </TableCell>
+                      </TableRow>
+                    })
+                  }
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 };

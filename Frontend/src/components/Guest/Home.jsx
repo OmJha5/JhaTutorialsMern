@@ -102,7 +102,9 @@ export default function Home() {
 
   return (
     <div>
-      {loading ? (
+      {error ? (
+        <InternalServerError />
+      ) : loading ? (
         <div className='w-full h-screen flex justify-center items-center'>
           <Loader2 className='animate-spin' size={25} />
         </div>
