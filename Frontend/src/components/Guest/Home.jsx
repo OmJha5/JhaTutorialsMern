@@ -118,7 +118,7 @@ export default function Home() {
               <h1 className="text-center text-xl font-semibold mb-3">Latest Notifications</h1>
 
               {/* First Group Marquee */}
-              <marquee className="pt-[14px] max-sm:pt-[px] max-md:text-sm max-sm:text-xs" ref={marqueeRef1} direction="left" behavior="alternate" onMouseOver={() => marqueeRef1.current.stop()} onMouseOut={() => marqueeRef1.current.start()}>
+              <marquee className="pt-[14px] max-sm:pt-[10px] max-md:text-sm max-sm:text-xs" ref={marqueeRef1} direction="left" behavior="alternate" onMouseOver={() => marqueeRef1.current.stop()} onMouseOut={() => marqueeRef1.current.start()}>
                 {posts?.slice(0, 3).map((post, ind) => (
                   <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 relative inline-block font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
@@ -132,9 +132,9 @@ export default function Home() {
               </marquee>
 
               {/* Second Group Marquee */}
-              <marquee className="pt-[14px] max-sm:pt-[px] max-md:text-sm max-sm:text-xs" ref={marqueeRef2} direction="left" behavior="alternate" onMouseOver={() => marqueeRef2.current.stop()} onMouseOut={() => marqueeRef2.current.start()}>
+              <marquee className="pt-[14px] max-sm:pt-[10px] max-md:text-sm max-sm:text-xs" ref={marqueeRef2} direction="left" behavior="alternate" onMouseOver={() => marqueeRef2.current.stop()} onMouseOut={() => marqueeRef2.current.start()}>
                 {posts?.slice(3, 6).map((post, ind) => (
-                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 font-semibold mx-6 underline hover:text-blue-800 transition-all">
+                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 relative font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
                     {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
@@ -145,9 +145,9 @@ export default function Home() {
               </marquee>
 
               {/* Third Group Marquee */}
-              <marquee className="pt-[14px] max-sm:pt-[px] max-md:text-sm max-sm:text-xs" ref={marqueeRef3} direction="left" behavior="alternate" onMouseOver={() => marqueeRef3.current.stop()} onMouseOut={() => marqueeRef3.current.start()}>
+              <marquee className="pt-[14px] max-sm:pt-[10px] max-md:text-sm max-sm:text-xs" ref={marqueeRef3} direction="left" behavior="alternate" onMouseOver={() => marqueeRef3.current.stop()} onMouseOut={() => marqueeRef3.current.start()}>
                 {posts?.slice(6).map((post, ind) => (
-                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 font-semibold mx-6 underline hover:text-blue-800 transition-all">
+                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 relative font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
                     {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.

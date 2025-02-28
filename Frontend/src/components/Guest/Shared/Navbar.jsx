@@ -13,14 +13,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   let navigate = useNavigate();
-  let { query } = useSelector((state) => state.post);
+  let {query} = useSelector((state) => state.post);
   let dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
-    dispatch(setQuery(input));
-    navigate("/browse");
-    setInput("");
+  const handleKeyDown = (e) => {
+    if (e.keyCode  === 13) {
+      dispatch(setQuery(input));
+      navigate("/browse")
+      setInput("");
+    }
   };
 
   return (
@@ -57,15 +58,14 @@ export default function Navbar() {
           {/* Input element(visible for >= large screens)  */}
           <div className="relative w-52 hidden lg:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-            <form onSubmit={handleSubmit}>
-              <Input
-                type="text"
-                placeholder="Filter by Job name."
-                className="pl-10 pr-4 py-2 rounded-lg border-gray-300 focus-visible:ring-0"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-            </form>
+            <Input
+              type="text"
+              placeholder="Filter by Job name."
+              className="pl-10 pr-4 py-2 rounded-lg border-gray-300 focus-visible:ring-0"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown} // Detects when Enter key is pressed
+            />
           </div>
 
           {/* Mobile Menu Button */}
