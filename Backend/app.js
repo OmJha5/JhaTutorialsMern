@@ -13,7 +13,7 @@ let port = process.env.PORT || 4000
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 const corsOptions = {
-    origin : "http://localhost:5173",
+    origin : "https://jhatutorialsmern-frontend.onrender.com/",
     credentials : true
 }
 
