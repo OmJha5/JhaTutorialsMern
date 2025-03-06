@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 const corsOptions = {
     origin : "https://jhatutorialsmern-frontend.onrender.com",
+    // origin : "http://localhost:5173",
     credentials : true
 }
 
