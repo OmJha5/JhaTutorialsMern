@@ -134,7 +134,8 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                         onChange={(e) => setCommonInfo({ ...commonInfo, location: e.target.value })} />
                 </div>
 
-                <div className="flex flex-col gap-4 w-full max-sm:text-sm">
+                {/* Multiselect react guide -> "https://medium.com/@vishnuksvichu12345/multiple-selection-input-field-with-search-functionality-using-shadcn-ui-c9944b5db647" */}
+                <div className="flex flex-col gap-4 w-full max-sm:text-sm overflow-x-auto">
                     <Label>Post Category</Label>
                     {/* Select Area */}
                     <Popover className="w-full">
@@ -145,11 +146,13 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                                 aria-expanded={open}
                                 className="w-full justify-between"
                             >
-                                <div className="flex gap-2 justify-start">
+                                <div>
                                     {value?.length ?
-                                        value.map((val, i) => (
-                                            <div key={i} className="px-2 py-1 rounded-xl border bg-slate-200 text-xs font-medium">{frameworks.find((framework) => framework.value === val)?.label}</div>
-                                        ))
+                                        <div className='ml-10 flex gap-2 justify-start'>
+                                            {value.map((val, i) => (
+                                                <div key={i} className="px-2 py-1 rounded-xl border bg-slate-200 text-xs font-medium">{frameworks.find((framework) => framework.value === val)?.label}</div>
+                                            ))}
+                                        </div>
                                         : "Select category..."}
                                 </div>
 

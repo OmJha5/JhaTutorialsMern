@@ -86,10 +86,13 @@ export default function Home() {
   // Without ref: The onMouseOver and onMouseOut events were only triggered on the Link element, not the parent <marquee>. So when you hovered over the Link, the marquee's stop() and start() methods weren't triggered.
   // With ref: You're directly controlling the parent <marquee> element via the ref, so the marquee's behavior is unaffected by where the mouse is, whether it’s on the parent or a child (Link). Events are not relying on bubbling and are applied directly to the marquee.
 
-  const isNewPost = (updatedAt) => {
+  const isNewPost = (updatedAt , name) => {
     const postTime = new Date(updatedAt);
     const now = new Date();
     const diffInHours = (now - postTime) / (1000 * 60 * 60); // Convert milliseconds to hours
+    if(diffInHours <= 6) {
+      // console.log(updatedAt , name , diffInHours)
+    }
     return diffInHours <= 6; // Returns true if within 6 hours
   };
 
@@ -109,7 +112,7 @@ export default function Home() {
           <Loader2 className='animate-spin' size={25} />
         </div>
       ) : (
-        <div className=''>
+        <div>
           <Navbar />
 
           <div className='max-w-[85%] mx-auto'>
@@ -118,13 +121,13 @@ export default function Home() {
               <h1 className="text-center text-xl font-semibold mb-3">Latest Notifications</h1>
 
               {/* First Group Marquee */}
-              <marquee className="pt-[14px] max-sm:pt-[px] max-md:text-sm max-sm:text-xs" ref={marqueeRef1} direction="left" behavior="alternate" onMouseOver={() => marqueeRef1.current.stop()} onMouseOut={() => marqueeRef1.current.start()}>
-                {posts?.slice(0, 3).map((post, ind) => (
-                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 relative inline-block font-semibold mx-6 underline hover:text-blue-800 transition-all">
+              <marquee className="pt-[18px] max-sm:pt-[8px] max-md:text-sm max-sm:text-xs" ref={marqueeRef1} direction="left" behavior="alternate" onMouseOver={() => marqueeRef1.current.stop()} onMouseOut={() => marqueeRef1.current.start()}>
+                {posts?.slice(0, 3).map((post) => (
+                  <Link key={post?._id} to={`/post/${post?._id}`} className="text-blue-700 relative inline-block font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
-                      <span className="bg-red-500 absolute left-[-36px] max-sm:left-[-32px] top-[-13px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
+                    {isNewPost(post.updatedAt , post.postname) && ( // Display posts with new badge if is created within 6 hours.
+                      <span className="bg-red-500 absolute sm:ml-2 left-[-36px] max-sm:left-[-32px] top-[-19px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
 
                   </Link>
@@ -132,26 +135,26 @@ export default function Home() {
               </marquee>
 
               {/* Second Group Marquee */}
-              <marquee className="pt-[14px] max-sm:pt-[px] max-md:text-sm max-sm:text-xs" ref={marqueeRef2} direction="left" behavior="alternate" onMouseOver={() => marqueeRef2.current.stop()} onMouseOut={() => marqueeRef2.current.start()}>
-                {posts?.slice(3, 6).map((post, ind) => (
-                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 font-semibold mx-6 underline hover:text-blue-800 transition-all">
+              <marquee className="pt-[18px] max-sm:pt-[8px] max-md:text-sm max-sm:text-xs" ref={marqueeRef2} direction="left" behavior="alternate" onMouseOver={() => marqueeRef2.current.stop()} onMouseOut={() => marqueeRef2.current.start()}>
+                {posts?.slice(3, 6).map((post) => (
+                  <Link key={post?._id} to={`/post/${post?._id}`} className="text-blue-700 relative font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
-                      <span className="bg-red-500 absolute left-[-36px] max-sm:left-[-32px] top-[-13px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
+                    {isNewPost(post.updatedAt , post.postname) && ( // Display posts with new badge if is created within 6 hours.
+                      <span className="bg-red-500 sm:ml-2 absolute left-[-36px] max-sm:left-[-32px] top-[-19px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
                   </Link>
                 ))}
               </marquee>
 
               {/* Third Group Marquee */}
-              <marquee className="pt-[14px] max-sm:pt-[px] max-md:text-sm max-sm:text-xs" ref={marqueeRef3} direction="left" behavior="alternate" onMouseOver={() => marqueeRef3.current.stop()} onMouseOut={() => marqueeRef3.current.start()}>
-                {posts?.slice(6).map((post, ind) => (
-                  <Link key={ind} to={`/post/${post?._id}`} className="text-blue-700 font-semibold mx-6 underline hover:text-blue-800 transition-all">
+              <marquee className="pt-[18px] max-sm:pt-[8px] max-md:text-sm max-sm:text-xs" ref={marqueeRef3} direction="left" behavior="alternate" onMouseOver={() => marqueeRef3.current.stop()} onMouseOut={() => marqueeRef3.current.start()}>
+                {posts?.slice(6).map((post) => (
+                  <Link key={post?._id} to={`/post/${post?._id}`} className="text-blue-700 relative font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.updatedAt) && ( // Display posts with new badge if is created within 6 hours.
-                      <span className="bg-red-500 absolute left-[-36px] max-sm:left-[-32px] top-[-13px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
+                    {isNewPost(post.updatedAt , post.postname) && ( // Display posts with new badge if is created within 6 hours.
+                      <span className="bg-red-500 absolute sm:ml-2 left-[-36px] max-sm:left-[-32px] top-[-19px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
                   </Link>
                 ))}

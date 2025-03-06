@@ -16,7 +16,7 @@ export default function Admin() {
 
             {/* Main Content */}
             <div className="flex-1 p-6 md:ml-80 transition-all duration-300 ease-in-out">
-                <div className="text-2xl text-center">Welcome to the Dashboard</div>;
+                <div className="text-2xl text-center">Welcome to the Dashboard</div>
             </div>
         </div>
     );

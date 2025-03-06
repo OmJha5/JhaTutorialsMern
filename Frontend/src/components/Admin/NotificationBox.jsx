@@ -17,7 +17,7 @@ export default function NotificationBox({ boxes, setBoxes }) {
 
     return (
         <div className='space-y-6 pr-3'>
-            <Button onClick={addBox} className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">
+            <Button onClick={addBox} className="bg-blue-600 text-white px-6 py-2 max-sm:px-3 max-sm:py-0 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">
                 Add Box
             </Button>
             {boxes.map((box, ind) => {
@@ -44,7 +44,7 @@ export default function NotificationBox({ boxes, setBoxes }) {
                     </div>
 
                     <div className="flex gap-2 justify-end">
-                        <Button className="px-4 mb-2 py-2 rounded-lg text-red-600 bg-red-100 hover:bg-red-200 transition-all duration-300" onClick={() => deleteBoxHandler(ind)}>
+                        <Button className="px-4 mb-2 py-2 max-sm:px-3 max-sm:py-0 rounded-lg text-red-600 bg-red-100 hover:bg-red-200 transition-all duration-300" onClick={() => deleteBoxHandler(ind)}>
                             <FiTrash /> {/* Trash icon */}
                             Delete
                         </Button>
