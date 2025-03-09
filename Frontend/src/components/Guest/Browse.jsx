@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { setQuery } from '@/redux/postSlice';
 import { Loader2 } from 'lucide-react';
 import InternalServerError from './InternalServerError';
+import Footer from './Shared/Footer';
 
 export default function Browse() {
     let { query } = useSelector((state) => state.post);
@@ -110,6 +111,8 @@ export default function Browse() {
                             ))}
                         </div>
                     </div>
+
+                    <Footer/>
 
                 </div>
             )

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Navbar from './Shared/Navbar'
 import axios from 'axios';
-import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
+import { ADMITCARD_API_ENDPOINT, ANSWERKEY_API_ENDPOINT, POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { toast } from 'sonner';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
@@ -9,11 +9,14 @@ import { useDispatch } from 'react-redux';
 import { setQuery } from '@/redux/postSlice';
 import { Loader2 } from 'lucide-react';
 import InternalServerError from './InternalServerError';
+import Footer from './Shared/Footer';
 
 export default function Home() {
   let [posts, setPosts] = useState([]);
   let [twelthPosts, setTwelthPosts] = useState([])
   let [graduationAndPgPosts, setGraduationAndPgPosts] = useState([]);
+  let [admitCardPosts , setAdmitCardPosts] = useState([]);
+  let [answerKeyPosts , setAnswerkeyPosts] = useState([]);
   let [loading, setLoading] = useState(false);
   let [error, setError] = useState(false);
   let dispatch = useDispatch();
@@ -76,6 +79,42 @@ export default function Home() {
 
     getPgAndGraduationPosts();
   }, [])
+  
+  useEffect(() => {
+
+    const getAllTop5AdmitCards = async () => {
+      try {
+        let res = await axios.get(`${ADMITCARD_API_ENDPOINT}/getTop5Post`, { withCredentials: true });
+
+        if (res.data.success) {
+          setAdmitCardPosts(res.data.topPosts);
+        }
+      }
+      catch (e) {
+        setError(true);
+      }
+    }
+
+    getAllTop5AdmitCards();
+  }, [])
+
+  useEffect(() => {
+
+    const getAllTop5AnswerKeys = async () => {
+      try {
+        let res = await axios.get(`${ANSWERKEY_API_ENDPOINT}/getTop5Post`, { withCredentials: true });
+
+        if (res.data.success) {
+          setAnswerkeyPosts(res.data.topPosts);
+        }
+      }
+      catch (e) {
+        setError(true);
+      }
+    }
+
+    getAllTop5AnswerKeys();
+  }, [])
 
 
   const marqueeRef1 = useRef(null);
@@ -83,14 +122,16 @@ export default function Home() {
   const marqueeRef3 = useRef(null);
   const twelthPostsMarquee = useRef(null);
   const graduationAndPgPostsMarquee = useRef(null);
+  const admitCardMarquee = useRef(null)
+  const answerKeyMarquee = useRef(null)
   // Without ref: The onMouseOver and onMouseOut events were only triggered on the Link element, not the parent <marquee>. So when you hovered over the Link, the marquee's stop() and start() methods weren't triggered.
   // With ref: You're directly controlling the parent <marquee> element via the ref, so the marquee's behavior is unaffected by where the mouse is, whether it’s on the parent or a child (Link). Events are not relying on bubbling and are applied directly to the marquee.
 
-  const isNewPost = (updatedAt , name) => {
+  const isNewPost = (updatedAt, name) => {
     const postTime = new Date(updatedAt);
     const now = new Date();
     const diffInHours = (now - postTime) / (1000 * 60 * 60); // Convert milliseconds to hours
-    if(diffInHours <= 6) {
+    if (diffInHours <= 6) {
       // console.log(updatedAt , name , diffInHours)
     }
     return diffInHours <= 6; // Returns true if within 6 hours
@@ -126,7 +167,7 @@ export default function Home() {
                   <Link key={post?._id} to={`/post/${post?._id}`} className="text-blue-700 relative inline-block font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.updatedAt , post.postname) && ( // Display posts with new badge if is created within 6 hours.
+                    {isNewPost(post.updatedAt, post.postname) && ( // Display posts with new badge if is created within 6 hours.
                       <span className="bg-red-500 absolute sm:ml-2 left-[-36px] max-sm:left-[-32px] top-[-19px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
 
@@ -140,7 +181,7 @@ export default function Home() {
                   <Link key={post?._id} to={`/post/${post?._id}`} className="text-blue-700 relative font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.updatedAt , post.postname) && ( // Display posts with new badge if is created within 6 hours.
+                    {isNewPost(post.updatedAt, post.postname) && ( // Display posts with new badge if is created within 6 hours.
                       <span className="bg-red-500 sm:ml-2 absolute left-[-36px] max-sm:left-[-32px] top-[-19px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
                   </Link>
@@ -153,7 +194,7 @@ export default function Home() {
                   <Link key={post?._id} to={`/post/${post?._id}`} className="text-blue-700 relative font-semibold mx-6 underline hover:text-blue-800 transition-all">
                     {post?.postshortname}
 
-                    {isNewPost(post.updatedAt , post.postname) && ( // Display posts with new badge if is created within 6 hours.
+                    {isNewPost(post.updatedAt, post.postname) && ( // Display posts with new badge if is created within 6 hours.
                       <span className="bg-red-500 absolute sm:ml-2 left-[-36px] max-sm:left-[-32px] top-[-19px] max-sm:top-[-8px] text-white text-xs font-bold px-2 max-sm:px-1 py-1 max-sm:py-0 rounded">New</span>
                     )}
                   </Link>
@@ -231,7 +272,45 @@ export default function Home() {
               </div>
             </div>
 
+            <div className="grid sm:grid-cols-[repeat(auto-fit,minmax(370px,1fr))] gap-6 p-6 bg-gray-50 border border-gray-300 rounded-lg shadow-lg my-5 max-sm:my-3">
+              {/* Admit Cards */}
+              <div className="border border-gray-300 rounded-lg p-6 max-md:p-4 max-sm:p-2 bg-white h-[400px] max-sm:h-[300px]">
+                <h2 className="text-xl md:text-lg  font-semibold text-gray-800 mb-4 sm:mb-2 py-2 text-center border-b">Admit Cards</h2>
+
+                <marquee ref={admitCardMarquee} onMouseOver={() => admitCardMarquee.current.stop()} onMouseOut={() => admitCardMarquee.current.start()} behavior="scroll" direction="up" scrolldelay="150" className="h-[80%] max-sm:h-[70%] max-md:text-sm max-sm:text-xs">
+                  <div className="flex flex-col gap-3 text-center">
+                    {admitCardPosts?.map((post, ind) => (
+                      (
+                        <Link key={ind} to={`/admitcards/${post?._id}`} className="text-blue-700 font-semibold mx-6 max-md:mx-4 max-sm:max-3 underline hover:text-blue-800 transition-all">
+                          {post?.postshortname}
+                        </Link>
+                      )
+                    ))}
+                  </div>
+                </marquee>
+              </div>
+
+              {/* Answer Keys */}
+              <div className="border border-gray-300 rounded-lg p-6 max-md:p-4 max-sm:p-2 bg-white h-[400px] max-sm:h-[300px]">
+                <h2 className="text-xl md:text-lg  font-semibold text-gray-800 mb-4 sm:mb-2 py-2 text-center border-b">Answer Keys</h2>
+
+                <marquee ref={answerKeyMarquee} onMouseOver={() => answerKeyMarquee.current.stop()} onMouseOut={() => answerKeyMarquee.current.start()} behavior="scroll" direction="up" scrolldelay="150" className="h-[80%] max-sm:h-[70%] max-md:text-sm max-sm:text-xs">
+                  <div className="flex flex-col gap-3 text-center">
+                    {answerKeyPosts?.map((post, ind) => (
+                      (
+                        <Link key={ind} to={`/answerkeys/${post?._id}`} className="text-blue-700 font-semibold mx-6 max-md:mx-4 max-sm:max-3 underline hover:text-blue-800 transition-all">
+                          {post?.postshortname}
+                        </Link>
+                      )
+                    ))}
+                  </div>
+                </marquee>
+              </div>
+            </div>
+
           </div>
+
+          <Footer/>
         </div>
       )
       }

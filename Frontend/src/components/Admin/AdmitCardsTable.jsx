@@ -18,26 +18,7 @@ import InternalServerError from "../Guest/InternalServerError";
 
 const AdmitCardsTable = ({ admitcards, setAdmitCards, filteredcards, setFilteredCards }) => {
     let navigate = useNavigate();
-    let [countHandPicked, setHandPicked] = useState(0);
     let [error, setError] = useState(false);
-
-    useEffect(() => {
-
-        let getCountOfHandPickedPosts = async () => {
-            try {
-                let res = await axios.get(`${POST_API_ENDPOINT}/gethandpickedposts`, { withCredentials: true });
-
-                if (res.data.success) {
-                    setHandPicked(res.data.countHandpicked);
-                }
-            }
-            catch (e) {
-                setError(true);
-            }
-        }
-
-        getCountOfHandPickedPosts();
-    }, [])
 
     let deleteAdmitCard = async (id) => {
         try {
@@ -71,7 +52,6 @@ const AdmitCardsTable = ({ admitcards, setAdmitCards, filteredcards, setFiltered
                                     <TableRow>
                                         <TableHead className="text-left whitespace-nowrap">Admit Card Name</TableHead>
                                         <TableHead className="text-left whitespace-nowrap">Post Name</TableHead>
-                                        <TableHead className="text-left whitespace-nowrap">Notification Box (<span className="font-bold text-md">{countHandPicked}</span>)</TableHead>
                                         <TableHead className="text-right whitespace-nowrap">Action</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -81,11 +61,6 @@ const AdmitCardsTable = ({ admitcards, setAdmitCards, filteredcards, setFiltered
                                             return <TableRow key={post._id}>
                                                 <TableCell className="whitespace-nowrap">{post?.postname}</TableCell>
                                                 <TableCell className="whitespace-nowrap">{post?.associatedPost?.postname}</TableCell>
-                                                <TableCell className="whitespace-nowrap">
-                                                    {
-                                                        (post?.handpicked) ? <Check size={20} className="text-green-500" /> : <CircleX size={20} className="text-red-600" />
-                                                    }
-                                                </TableCell>
                                                 <TableCell className="text-right whitespace-nowrap">
                                                     <Popover>
                                                         <PopoverTrigger>

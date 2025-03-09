@@ -198,3 +198,19 @@ export let editAnswerKey = async(req , res) => {
         })
     }
 }
+
+export let getTop5Post = async(req , res) => {
+    try{
+        const topPosts = await AnswerKey.find({}).sort({ createdAt: -1 }).limit(5);
+
+        return res.status(200).json({
+            topPosts,
+            success : true,
+        })
+    }
+    catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+}

@@ -5,6 +5,7 @@ import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import InternalServerError from './InternalServerError';
+import Footer from './Shared/Footer';
 
 export default function Posts() {
   let [posts, setAllPosts] = useState([]);
@@ -95,6 +96,8 @@ export default function Posts() {
               ))}
             </div>
           </div>
+
+          <Footer/>
         </div>
       )}
     </div>

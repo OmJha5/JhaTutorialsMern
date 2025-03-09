@@ -5,6 +5,7 @@ import axios from "axios";
 import { POST_API_ENDPOINT } from "@/utils/apiendpoint";
 import { Loader2 } from "lucide-react";
 import InternalServerError from "./InternalServerError";
+import Footer from "./Shared/Footer";
 
 export default function Post() {
     let params = useParams();
@@ -122,7 +123,7 @@ export default function Post() {
 
                                             <div className="grid sm:grid-cols-2 gap-6 max-sm:p-0 max-sm:justify-items-center">
                                                 {currPost?.boxes?.slice(0, -1).map((box) => (
-                                                    <div key={box?.id} className="p-5 max-sm:p-3 border border-gray-300 rounded-lg shadow-sm p-4 bg-gray-50" >
+                                                    <div key={box?.id} className="max-sm:p-3 border border-gray-300 rounded-lg shadow-sm p-4 bg-gray-50" >
                                                         <h2
                                                             className="text-xl max-sm:text-base font-normal text-center mb-2 !leading-snug"
                                                             dangerouslySetInnerHTML={{ __html: box?.heading }}
@@ -304,6 +305,8 @@ export default function Post() {
                                             </ul>
                                         </div>
                                     </div>
+
+                                    <Footer/>
                                 </div>
                             )
                         }

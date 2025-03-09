@@ -5,6 +5,7 @@ import axios from "axios";
 import { ADMITCARD_API_ENDPOINT, ANSWERKEY_API_ENDPOINT, POST_API_ENDPOINT } from "@/utils/apiendpoint";
 import { Loader2 } from "lucide-react";
 import InternalServerError from "./InternalServerError";
+import Footer from "./Shared/Footer";
 
 export default function AnswerKey() {
     let params = useParams();
@@ -288,6 +289,8 @@ export default function AnswerKey() {
                                         </ul>
                                     </div>
                                 </div>
+
+                                <Footer/>
                             </div>
                         )
                     }

@@ -5,6 +5,7 @@ import { ADMITCARD_API_ENDPOINT, ANSWERKEY_API_ENDPOINT } from '@/utils/apiendpo
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import InternalServerError from './InternalServerError';
+import Footer from './Shared/Footer';
 
 export default function AnswerKeys() {
   let [posts, setAllPosts] = useState([]);
@@ -95,6 +96,8 @@ export default function AnswerKeys() {
               ))}
             </div>
           </div>
+
+          <Footer/>
         </div>
       )}
     </div>
