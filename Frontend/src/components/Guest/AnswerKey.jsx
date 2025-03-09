@@ -17,8 +17,8 @@ export default function AnswerKey() {
     let navigate = useNavigate();
 
     useEffect(() => {
-            if(currPost?.postshortname) document.title = currPost?.postshortname
-    } , [currPost])
+        if (currPost?.postshortname) document.title = currPost?.postshortname
+    }, [currPost])
 
     // This will convert any valid date into 22 Mar 2025 type format
     const formatDate = (dateStr) => {
@@ -86,7 +86,7 @@ export default function AnswerKey() {
                             <div>
                                 <Navbar />
 
-                                <div className="max-w-[90%] max-sm:max-w-[95%] mx-auto mt-6 max-sm:mt-3 p-6 max-md:p-4 max-sm:p-3 rounded-xl shadow-md">
+                                <div className="max-w-[90%] max-sm:max-w-[95%] mx-auto mt-6 max-sm:mt-3 p-6 max-md:p-4 max-sm:px-3 max-sm:py-4 rounded-xl shadow-md">
                                     <h1 className="bg-gray-200 sm:mb-2 p-4 max-sm:p-2 rounded-md text-xl max-sm:text-sm font-semibold max-sm:text-center">
                                         {currPost?.posttitle}
                                     </h1>
@@ -120,14 +120,11 @@ export default function AnswerKey() {
                                     </div>
 
                                     {/* Box Sections */}
-                                    <div className="flex flex-col p-4 max-sm:p-2">
-                                        <h1 className="text-2xl max-sm:text-sm my-4 max-sm:my-3 text-center font-semibold">
-                                            {currPost?.postshortname}
-                                        </h1>
+                                    <div className={`flex flex-col ${currPost?.boxes?.length >= 1 ? "my-7 max-sm:my-4" : ""} `}>
 
                                         <div className="grid sm:grid-cols-2 gap-6 max-sm:p-0 max-sm:justify-items-center">
                                             {currPost?.boxes?.slice(0, -1).map((box) => (
-                                                <div key={box?.id} className="max-sm:p-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 p-4" >
+                                                <div key={box?.id} className="max-sm:p-3 border border-gray-300 rounded-lg shadow-sm p-4 bg-gray-50" >
                                                     <h2
                                                         className="text-xl max-sm:text-base font-normal text-center mb-2 !leading-snug"
                                                         dangerouslySetInnerHTML={{ __html: box?.heading }}
@@ -294,7 +291,7 @@ export default function AnswerKey() {
                                     </div>
                                 </div>
 
-                                <Footer/>
+                                <Footer />
                             </div>
                         )
                     }

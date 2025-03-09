@@ -86,7 +86,7 @@ export default function Post() {
                                 <div>
                                     <Navbar />
 
-                                    <div className="max-w-[90%] max-sm:max-w-[95%] mx-auto mt-6 max-sm:mt-3 p-6 max-md:p-4 max-sm:p-3 rounded-xl shadow-md">
+                                    <div className="max-w-[90%] max-sm:max-w-[95%] mx-auto mt-6 max-sm:mt-3 p-6 max-md:p-4 max-sm:px-3 max-sm:py-4 rounded-xl shadow-md">
                                         <h1 className="bg-gray-200 sm:mb-2 p-4 max-sm:p-2 rounded-md text-xl max-sm:text-sm font-semibold max-sm:text-center">
                                             {currPost?.posttitle}
                                         </h1>
@@ -120,10 +120,7 @@ export default function Post() {
                                         </div>
 
                                         {/* Box Sections */}
-                                        <div className="flex flex-col p-4 max-sm:p-2">
-                                            <h1 className="text-2xl max-sm:text-sm my-4 max-sm:my-3 text-center font-semibold">
-                                                {currPost?.postshortname}
-                                            </h1>
+                                        <div className={`flex flex-col ${currPost?.boxes?.length >= 1 ? "my-7 max-sm:my-4" : ""} `}>
 
                                             <div className="grid sm:grid-cols-2 gap-6 max-sm:p-0 max-sm:justify-items-center">
                                                 {currPost?.boxes?.slice(0, -1).map((box) => (
@@ -142,7 +139,7 @@ export default function Post() {
                                         </div>
 
                                         {/* Tables Section */}
-                                        <div className="flex flex-col gap-4 my-4">
+                                        <div className="flex flex-col gap-4 mb-4">
                                             {currPost?.tables?.map((table) => (
                                                 <div key={table?.id} className="max-sm:overflow-x-auto border border-gray-200 shadow-md rounded-lg">
                                                     <div className="w-full max-sm:overflow-x-auto">
