@@ -46,11 +46,9 @@ export default function Navbar() {
             {/* Desktop Links */}
             <div className="hidden lg:flex space-x-7 xl:space-x-9 text-sm xl:text-base">
               <Link to="/">Home</Link>
-              <Link to="/posts">Latest Posts</Link>
-              <Link to="#" onClick={(e) => {
-                e.preventDefault()
-                toast.success("We will Roll out this feature soon..")
-              }}>Cources</Link>
+              <Link to="/posts">Jobs</Link> 
+              <Link to="/admitcards">Admit Cards</Link> 
+              <Link to="/answerkeys">Answer Keys</Link> 
 
               <Link to="#" onClick={() => navigate("/donate")}>Donate Us</Link>
               <Link to="#" onClick={() => navigate("/about")}>About Us</Link>
@@ -86,12 +84,9 @@ export default function Navbar() {
       >
         <div className="flex flex-col items-center space-y-4 py-4 text-sm">
           <Link to="/">Home</Link>
-          <Link to="/posts">Latest Jobs</Link>
-          <Link to="#" onClick={(e) => {
-            e.preventDefault()
-            toast.success("We will Roll out this feature soon..")
-          }}>Cources</Link>
-
+          <Link to="/posts">Jobs</Link>
+          <Link to="/admitcards">Admit Cards</Link> 
+          <Link to="/answerkeys">Answer Keys</Link> 
           <Link to="/donate">Donate Us</Link>
           <Link to="/about">About Us</Link>
         </div>

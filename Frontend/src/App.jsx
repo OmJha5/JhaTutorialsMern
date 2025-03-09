@@ -19,6 +19,10 @@ import CreateAdmitCard from './components/Admin/CreateAdmitCard'
 import CreateAnswerKey from './components/Admin/CreateAnswerKey'
 import EditAdmitCard from './components/Admin/EditAdmitCard'
 import EditAnswerKey from './components/Admin/EditAnswerKey'
+import AdmitCards from './components/Guest/AdmitCards'
+import GuestAdminCard from './components/Guest/AdmitCard'
+import AnswerKeys from './components/Guest/AnswerKeys'
+import GuestAnswerKeys from "./components/Guest/AnswerKey"
 
 const appRouter = createBrowserRouter([
     {
@@ -92,6 +96,22 @@ const appRouter = createBrowserRouter([
     {
         path : "/admin/createanswerkey",
         element : <CreateAnswerKey/>
+    },
+    {
+        path : "/admitcards",
+        element : <AdmitCards />
+    },
+    {
+        path : "/answerkeys",
+        element : <AnswerKeys />
+    },
+    {
+        path : "/admitcards/:id",
+        element : <GuestAdminCard />
+    },
+    {
+        path : "/answerkeys/:id",
+        element : <GuestAnswerKeys />
     },
     {
         path : "*",
