@@ -119,7 +119,7 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
     }
 
     return (
-        <Card className="p-6 max-sm:p-3 shadow-md rounded-2xl bg-white">
+        <Card className="p-6 max-sm:py-4 max-sm:!px-0 shadow-md rounded-2xl bg-white">
             <CardContent className="flex flex-col gap-6">
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="posttitle">Post Title</Label>
@@ -248,15 +248,15 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
 
                 {
                     (activeTab == "AdmitCard" || activeTab == "AnswerKey") && (
-                        <div className="flex flex-col gap-4 w-full ">
+                        <div className="flex flex-col gap-4 w-full overflow-x-auto">
                             <Label>Associated Post</Label>
-                            <Popover className="w-full ">
+                            <Popover className="max-sm:w-fit ">
                                 <PopoverTrigger asChild>
                                     <Button
                                         variant="outline"
                                         role="combobox"
                                         aria-expanded={open}
-                                        className="w-full justify-between"
+                                        className="max-sm:w-fit justify-between"
                                     >
                                         {associatedPost
                                             ? (
@@ -266,7 +266,7 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                                             ): "Choose Associated Post"}
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-full min-w-[var(--radix-popover-trigger-width)] p-0">
+                                <PopoverContent className="max-sm:w-fit min-w-[var(--radix-popover-trigger-width)] p-0">
                                     <Command>
                                         <CommandInput placeholder="Search post" />
                                         <CommandList>
