@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useState } from "react";
 import NavAdmin from './NavAdmin';
 import AdminPostsTable from './AdminPostsTable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -12,6 +12,7 @@ import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import InternalServerError from '../Guest/InternalServerError';
+import { setActiveTab } from '@/redux/userSlice';
 
 export default function AdminPosts() {
     useCheckUser();
@@ -21,6 +22,11 @@ export default function AdminPosts() {
     let [filteredPosts, setFilteredPosts] = useState([]);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
+    let dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(setActiveTab("Posts"));
+    } , [])
 
     useEffect(() => {
 

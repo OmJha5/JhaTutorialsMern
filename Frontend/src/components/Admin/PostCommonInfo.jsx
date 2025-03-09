@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -28,17 +28,73 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { POST_API_ENDPOINT } from '@/utils/apiendpoint';
 
 export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
     let inputRef = useRef();
+    let { activeTab } = useSelector((state) => state.user);
     const [value, setValue] = useState(
         commonInfo?.postcategory?.trim() ? commonInfo.postcategory.split(" ") : [] // If commonInfo.postcategory is "" to handle that we are using trim() so that createPost will not face issues
     ) // for multiple select -- Here it is an array but in db will store it in string containing many values
+    let [associatedPost, setAssociatedPost] = useState(commonInfo?.associatedPost);
+    const initialAssociatedPostId = useMemo(() => commonInfo.associatedPost, []);
+
+    useEffect(() => {
+        setCommonInfo({...commonInfo , associatedPost : associatedPost});
+    }, [associatedPost])
 
     useEffect(() => {
         const str = value.join(" ");
         setCommonInfo({ ...commonInfo, postcategory: str })
     }, [value])
+
+    let [allPosts, setAllPosts] = useState([]);
+    let [loading, setLoading] = useState(false);
+    let [currPost , setCurrPost] = useState("");
+
+    useEffect(() => {
+        const getAllPosts = async () => {
+            try {
+                setLoading(true);
+                let res = await axios.get(`${POST_API_ENDPOINT}/getAllShortPostInfo/${activeTab}`, { withCredentials: true });
+
+                if (res.data.success) {
+                    setAllPosts(res.data.allPosts);
+                }
+            }
+            catch (e) {
+                setError(true);
+            }
+            finally {
+                setLoading(false);
+            }
+        }
+
+        getAllPosts();
+    }, [])
+
+    useEffect(() => {
+        const getCurrPost = async () => {
+            try {
+                setLoading(true);
+                let res = await axios.get(`${POST_API_ENDPOINT}/get/${associatedPost}`, { withCredentials: true });
+
+                if (res.data.success) {
+                    setCurrPost(res.data.post);
+                }
+            }
+            catch (e) {
+                setError(true);
+            }
+            finally {
+                setLoading(false);
+            }
+        }
+
+        if(associatedPost) getCurrPost();
+    }, [])
 
     const frameworks = [
         { value: 'teaching', label: 'Teaching' },
@@ -189,6 +245,60 @@ export default function PostCommonInfo({ commonInfo, setCommonInfo }) {
                         </PopoverContent>
                     </Popover>
                 </div>
+
+                {
+                    (activeTab == "AdmitCard" || activeTab == "AnswerKey") && (
+                        <div className="flex flex-col gap-4 w-full ">
+                            <Label>Associated Post</Label>
+                            <Popover className="w-full ">
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={open}
+                                        className="w-full justify-between"
+                                    >
+                                        {associatedPost
+                                            ? (
+                                                associatedPost == initialAssociatedPostId ? (
+                                                    currPost?.postname
+                                                ) : allPosts.find((post) => post?._id === associatedPost)?.postname
+                                            ): "Choose Associated Post"}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-full min-w-[var(--radix-popover-trigger-width)] p-0">
+                                    <Command>
+                                        <CommandInput placeholder="Search post" />
+                                        <CommandList>
+                                            <CommandEmpty>No Post Found</CommandEmpty>
+                                            <CommandGroup>
+                                                {allPosts.map((post) => (
+                                                    <CommandItem
+                                                        key={post?._id}
+                                                        value={post?.postname}  // ✅ Enables searching by name
+                                                        onSelect={(postname) => {
+                                                            postname.trim();
+                                                            const selectedPost = allPosts.find((p) => p.postname.trim() === postname);
+                                                            setAssociatedPost(selectedPost ? selectedPost._id : "");
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                associatedPost === post?._id ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {post?.postname}
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                    )
+                }
 
                 <div className="flex flex-col gap-4">
                     <Label htmlFor="briefinformation">Brief Information</Label>

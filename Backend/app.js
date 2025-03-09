@@ -4,6 +4,8 @@ import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
 import userRouter from "./routes/user.route.js"  
 import postRouter from "./routes/post.route.js"  
+import admitcardRouter from "./routes/admitcard.route.js"  
+import answerkeyRouter from "./routes/answerkey.route.js"  
 import connectDB from "./utils/db.js"
 
 const app = express()
@@ -25,6 +27,8 @@ app.use(cookieParser());
 // Api's
 app.use("/api/user" , userRouter);
 app.use("/api/post" , postRouter);
+app.use("/api/admitcard" , admitcardRouter);
+app.use("/api/answerkey" , answerkeyRouter);
 
 app.listen(port , () => {
     connectDB();

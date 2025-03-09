@@ -13,21 +13,6 @@ export default function NavAdmin() {
     let dispatch = useDispatch();
     let navigate = useNavigate();
 
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-            // Dispatch the action when the user leaves the page
-            dispatch(setActiveTab("Dashboard"));  
-        };
-
-        // Attach the beforeunload event listener
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Cleanup function to remove the event listener when the component unmounts
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [dispatch]);
-
     return (
         <div className='fixed top-0 left-0 md:h-full max-md:w-full z-[10]'>
             {/* Mobile Sidebar Toggle */}
@@ -66,6 +51,28 @@ export default function NavAdmin() {
                     >
                         <BriefcaseBusiness className="w-5 h-5" />
                         Posts
+                    </Button>
+
+                    {/* Admit Card */}
+                    <Button
+                        key={"AdmitCard"}
+                        onClick={() => { setSidebarOpen(false); dispatch(setActiveTab("AdmitCard")); navigate("/admin/admitcard") }}
+                        variant="ghost"
+                        className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "AdmitCard" && "bg-gray-700"}`}
+                    >
+                        <BriefcaseBusiness className="w-5 h-5" />
+                        Admit Card
+                    </Button>
+
+                    {/* Answer Key */}
+                    <Button
+                        key={"AnswerKey"}
+                        onClick={() => { setSidebarOpen(false); dispatch(setActiveTab("AnswerKey")); navigate("/admin/answerkey") }}
+                        variant="ghost"
+                        className={`flex items-center gap-3 px-4 py-2 w-full ${"md:justify-start"} ${activeTab === "AnswerKey" && "bg-gray-700"}`}
+                    >
+                        <BriefcaseBusiness className="w-5 h-5" />
+                        Answer Key
                     </Button>
 
                     {/* Users */}

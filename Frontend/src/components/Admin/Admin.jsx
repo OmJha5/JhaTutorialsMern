@@ -2,13 +2,19 @@ import useCheckUser from '@/hooks/useCheckUser';
 import React, { useEffect } from 'react'
 import { useState } from "react";
 import NavAdmin from './NavAdmin';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setActiveTab } from '@/redux/userSlice';
 
 export default function Admin() {
     useCheckUser();
     let {user} = useSelector((state) => state.user)
     let navigate = useNavigate();
+    let dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(setActiveTab("Dashboard"));
+    } , [])
 
     return (
         <div className="flex h-screen flex-col max-md:mt-16 md:flex-row relative">

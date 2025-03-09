@@ -59,6 +59,29 @@ export let getAllPosts = async (req, res) => {
     }
 }
 
+export let getAllShortPostInfo = async(req , res) => {
+    try {
+        let {who} = req.params;
+        let allPosts = [];
+
+        if(who == "AdmitCard"){
+            allPosts = await Post.find({ $or: [{ admitCard: null }, { admitCard: { $exists: false } }] }).sort({createdAt : -1}).select("_id postname");
+        }
+        else{
+            allPosts = await Post.find({ $or: [{ answerKey: null }, { answerKey: { $exists: false } }] }).sort({createdAt : -1}).select("_id postname");
+        }
+
+        return res.status(200).json({
+            allPosts, success: true
+        })
+    }
+    catch (e) {
+        res.status(400).json({
+            success: false
+        })
+    }
+}
+
 export let deletePost = async (req, res) => {
     try {
         let { id } = req.params;
@@ -77,6 +100,17 @@ export let deletePost = async (req, res) => {
             })
         }
 
+        // Delete associated AdmitCard if available
+        if (post.admitCard) {
+            await AdmitCard.findByIdAndDelete(post.admitCard);
+        }
+
+        // Delete associated AnswerKey if available
+        if (post.answerKey) {
+            await AnswerKey.findByIdAndDelete(post.answerKey);
+        }
+
+        // Delete the post
         await Post.deleteOne({ _id: id });
 
         return res.status(200).json({

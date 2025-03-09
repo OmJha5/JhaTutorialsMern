@@ -4,7 +4,7 @@ const userSlice = createSlice({
     name : "user",
     initialState : {
         user : null,
-        activeTab : "Dashboard", // Navbar ke kis tab ko click kiya hai 
+        activeTab : "Dashboard", // Navbar ke kis tab ko click kiya hai
     },
     reducers : {
         setUser : (state , action) => {

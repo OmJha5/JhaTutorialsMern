@@ -9,8 +9,9 @@ import DialogCreateUser from './DialogCreateUser';
 import useCheckUser from '@/hooks/useCheckUser';
 import NavAdmin from './NavAdmin';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InternalServerError from '../Guest/InternalServerError';
+import { setActiveTab } from '@/redux/userSlice';
 
 
 export default function AdminUsers() {
@@ -22,6 +23,11 @@ export default function AdminUsers() {
     let navigate = useNavigate();
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setActiveTab("Users"));
+    }, [])
 
     useEffect(() => {
         setFilteredUsers(allUsers)

@@ -13,6 +13,12 @@ import Browse from './components/Guest/Browse'
 import Donate from './components/Guest/Donate'
 import About from './components/Guest/About'
 import NotFound from './components/Guest/NotFound'
+import AdmitCard from './components/Admin/AdmitCard'
+import AnswerKey from './components/Admin/AnswerKey'
+import CreateAdmitCard from './components/Admin/CreateAdmitCard'
+import CreateAnswerKey from './components/Admin/CreateAnswerKey'
+import EditAdmitCard from './components/Admin/EditAdmitCard'
+import EditAnswerKey from './components/Admin/EditAnswerKey'
 
 const appRouter = createBrowserRouter([
     {
@@ -62,6 +68,30 @@ const appRouter = createBrowserRouter([
     {
         path : "/admin/posts/edit/:id",
         element : <EditPost/>
+    },
+    {
+        path : "/admin/admitcard",
+        element : <AdmitCard/>
+    },
+    {
+        path : "/admin/answerkey",
+        element : <AnswerKey/>
+    },
+    {
+        path : "/admin/answerkey/edit/:id",
+        element : <EditAnswerKey/>
+    },
+    {
+        path : "/admin/admitcard/edit/:id",
+        element : <EditAdmitCard/>
+    },
+    {
+        path : "/admin/createadmitcard",
+        element : <CreateAdmitCard/>
+    },
+    {
+        path : "/admin/createanswerkey",
+        element : <CreateAnswerKey/>
     },
     {
         path : "*",

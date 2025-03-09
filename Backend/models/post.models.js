@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import AdmitCard from "./admitcard.models.js";
+import AnswerKey from "./answerkey.models.js"
 
 const postSchema = new mongoose.Schema({
     posttitle : { type : String , required : true},
@@ -16,6 +18,9 @@ const postSchema = new mongoose.Schema({
     youtubelink : {type : String , default : ""},
     officialwebsitelink : {type : String , default : ""},
     handpicked: { type: Boolean, default: false }, // To control whether post should be added in notification box or not
+
+    admitCard : {type : mongoose.Schema.Types.ObjectId , ref : "AdmitCard"},
+    answerKey : {type : mongoose.Schema.Types.ObjectId , ref : "AnswerKey"},
     
     tables : [
         {   
