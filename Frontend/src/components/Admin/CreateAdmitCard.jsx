@@ -25,6 +25,10 @@ export default function CreateAdminCard(){
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
 
+    useEffect(() => {
+          document.title = "Jha Tutorials | Create New Admit Card"
+    } , [])
+
     let isFormValid = () => {
         if (commonInfo.posttitle == "" || commonInfo.postname == "" || commonInfo.postshortname == "" || isNaN(commonInfo.totalvacancies) || commonInfo.briefinformation == "" || commonInfo.startingdate == "" || commonInfo.endingdate == "" || commonInfo.qualification == "" || commonInfo.applylink == "" || commonInfo.postcategory == "" || commonInfo.location == "" || commonInfo.file == "" || commonInfo.associatedPost == "") {
             toast.error("All Fields are required!")

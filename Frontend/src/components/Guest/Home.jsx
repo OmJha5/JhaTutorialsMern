@@ -23,6 +23,10 @@ export default function Home() {
   let navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Jha Tutorials | Latest Online Form | Result 2025"
+  } , [])
+
+  useEffect(() => {
 
     let getTop9Post = async () => {
       try {

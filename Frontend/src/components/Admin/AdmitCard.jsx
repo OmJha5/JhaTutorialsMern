@@ -20,6 +20,10 @@ export default function AdmitCard() {
   let [error, setError] = useState(false);
 
   useEffect(() => {
+        document.title = "Jha Tutorials | Latest Admit Cards"
+  } , [])
+
+  useEffect(() => {
     setFilteredCards(admitcards);
   } , [admitcards])
 

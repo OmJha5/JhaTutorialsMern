@@ -11,6 +11,10 @@ export default function Admin() {
     let {user} = useSelector((state) => state.user)
     let navigate = useNavigate();
     let dispatch = useDispatch();
+
+    useEffect(() => {
+          document.title = "Jha Tutorials | Dashboard"
+    } , [])
     
     useEffect(() => {
         dispatch(setActiveTab("Dashboard"));

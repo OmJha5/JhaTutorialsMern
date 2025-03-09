@@ -13,6 +13,10 @@ export default function AnswerKeys() {
   let [error, setError] = useState(false);
 
   useEffect(() => {
+      document.title = "Jha Tutorials | Download Latest Answer Keys"
+  } , [])
+
+  useEffect(() => {
     const getAllAdmitCards = async () => {
       try {
         setLoading(true);

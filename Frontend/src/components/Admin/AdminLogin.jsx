@@ -22,6 +22,10 @@ export default function AdminLogin() {
   let navigate = useNavigate();
   let [error, setError] = useState(false);
 
+  useEffect(() => {
+        document.title = "Jha Tutorials | Login Page"
+  } , [])
+
   let changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   }

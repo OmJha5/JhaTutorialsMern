@@ -28,6 +28,10 @@ export default function EditAnswerKey() {
     let [error, setError] = useState(false);
 
     useEffect(() => {
+          document.title = "Jha Tutorials | Edit Answer Key"
+    } , [])
+
+    useEffect(() => {
         let getCurrAnswerKey = async () => {
             try {
                 setPageLoading(true);

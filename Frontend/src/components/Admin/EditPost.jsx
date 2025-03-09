@@ -28,6 +28,10 @@ export default function EditPost() {
     let [error, setError] = useState(false);
 
     useEffect(() => {
+          document.title = "Jha Tutorials | Edit Post"
+    } , [])
+
+    useEffect(() => {
         let getCurrPost = async () => {
             try {
                 setPageLoading(true);

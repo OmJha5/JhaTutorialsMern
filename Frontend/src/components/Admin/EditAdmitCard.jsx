@@ -28,6 +28,10 @@ export default function EditPost() {
     let [error, setError] = useState(false);
 
     useEffect(() => {
+          document.title = "Jha Tutorials | Edit Admit Card"
+    } , [])
+
+    useEffect(() => {
         let getCurrAdmitCard = async () => {
             try {
                 setPageLoading(true);

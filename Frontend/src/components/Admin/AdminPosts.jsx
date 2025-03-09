@@ -29,6 +29,10 @@ export default function AdminPosts() {
     } , [])
 
     useEffect(() => {
+          document.title = "Jha Tutorials | Latest Admin Posts"
+    } , [])
+
+    useEffect(() => {
 
         const getAllPosts = async () => {
             try {

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './Shared/Navbar';
 import Footer from './Shared/Footer';
 
 export default function About() {
+  useEffect(() => {
+      document.title = "Jha Tutorials | About Us"
+  } , [])
+
   return (
     <div className="bg-[#f1f1f1]">
       <Navbar />

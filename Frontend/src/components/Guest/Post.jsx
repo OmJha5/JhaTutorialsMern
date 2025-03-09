@@ -16,6 +16,10 @@ export default function Post() {
     let [error, setError] = useState(false);
     let navigate = useNavigate();
 
+    useEffect(() => {
+        if(currPost?.postshortname) document.title = currPost?.postshortname
+    } , [currPost])
+
     // This will convert any valid date into 22 Mar 2025 type format
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
@@ -265,7 +269,7 @@ export default function Post() {
                                                             <td className="px-4 py-2 font-semibold text-red-700 max-sm:text-xs">View Associated Answer Key</td>
                                                             <td className="px-4 py-2 text-right max-sm:text-xs">
                                                                 <Link
-                                                                    to={`/answerkey/${currPost?.answerKey}`}
+                                                                    to={`/answerkeys/${currPost?.answerKey}`}
                                                                     target="_blank"
                                                                     className="underline text-blue-600 hover:text-blue-800"
                                                                 >

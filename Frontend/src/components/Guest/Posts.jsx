@@ -13,6 +13,10 @@ export default function Posts() {
   let [error, setError] = useState(false);
 
   useEffect(() => {
+        document.title = "Jha Tutorials | Download Latest Jobs"
+  } , [])
+
+  useEffect(() => {
     const getAllPosts = async () => {
       try {
         setLoading(true);

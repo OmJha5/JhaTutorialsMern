@@ -16,6 +16,10 @@ export default function AdmitCard() {
     let [error, setError] = useState(false);
     let navigate = useNavigate();
 
+    useEffect(() => {
+        if(currPost?.postshortname) document.title = currPost?.postshortname
+    } , [currPost])
+
     // This will convert any valid date into 22 Mar 2025 type format
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);

@@ -13,6 +13,10 @@ export default function AdmitCards() {
   let [error, setError] = useState(false);
 
   useEffect(() => {
+      document.title = "Jha Tutorials | Download Latest Admit Cards"
+  } , [])
+
+  useEffect(() => {
     const getAllAdmitCards = async () => {
       try {
         setLoading(true);

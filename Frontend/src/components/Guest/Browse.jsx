@@ -25,6 +25,10 @@ export default function Browse() {
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
 
+    useEffect(() => {
+        document.title = "Jha Tutorials | Browse Latest Posts"
+    } , [])
+
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
         return date.toLocaleDateString('en-GB', {

@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function InternalServerError() {
+  useEffect(() => {
+        document.title = "Jha Tutorials | Internal Server Error"
+  } , [])
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="text-center p-6 bg-white shadow-lg rounded-lg border border-gray-300 max-w-md">

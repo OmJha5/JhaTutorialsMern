@@ -26,6 +26,10 @@ export default function AdminUsers() {
     let dispatch = useDispatch();
 
     useEffect(() => {
+          document.title = "Jha Tutorials | Admin Users"
+    } , [])
+
+    useEffect(() => {
         dispatch(setActiveTab("Users"));
     }, [])
 

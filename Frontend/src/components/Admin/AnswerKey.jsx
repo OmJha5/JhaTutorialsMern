@@ -20,6 +20,10 @@ export default function AnswerKey() {
   let [error, setError] = useState(false);
 
   useEffect(() => {
+        document.title = "Jha Tutorials | Latest Answer Keys"
+  } , [])
+
+  useEffect(() => {
     setFilteredCards(answerkey);
   } , [answerkey])
 
